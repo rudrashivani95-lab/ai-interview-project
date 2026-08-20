@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: prepmate-ai
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm run server
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
