@@ -30,19 +30,25 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const allowedOrigins = new Set([
+  'http://127.0.0.1:5500',
+  'http://localhost:5500',
+  'http://localhost:3000',
+  'https://rudrashivani95-lab.github.io',
+  'https://ai-interview-project-74tfatk0b-rudrashivani95-labs-projects.vercel.app'
+]);
 
 // =============================================================================
 // MIDDLEWARE
 // =============================================================================
 
 app.use(cors({
-  origin: [
-    'http://127.0.0.1:5500',
-    'http://localhost:5500',
-    'http://localhost:3000',
-    'https://rudrashivani95-lab.github.io',
-    'https://ai-interview-project-74tfatk0b-rudrashivani95-labs-projects.vercel.app'
-  ],
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.has(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Origin not allowed by CORS'));
+  },
   credentials: true,
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
