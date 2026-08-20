@@ -9,6 +9,14 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+let databaseConnection;
+
+function ensureDatabaseConnection() {
+  if (!databaseConnection) {
+    databaseConnection = connectDB();
+  }
+  return databaseConnection;
+}
 
 // Middleware
 app.use(cors({
@@ -23,6 +31,14 @@ app.use(express.urlencoded({ limit: '10mb', extended: true }));
 // Serve the frontend from the same public origin in production.
 const frontendPath = path.join(__dirname, '..', 'frontend');
 app.use(express.static(frontendPath));
+app.use(async (req, res, next) => {
+  try {
+    await ensureDatabaseConnection();
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -68,7 +84,7 @@ async function start() {
     console.log('Starting prepmate AI Backend...');
     console.log('Attempting to connect to MongoDB...');
     
-    await connectDB();
+    await ensureDatabaseConnection();
     console.log('MongoDB connected, starting Express server...');
     
     const server = app.listen(PORT, '0.0.0.0', () => {
@@ -85,4 +101,8 @@ async function start() {
   }
 }
 
-start();
+if (require.main === module) {
+  start();
+}
+
+module.exports = app;
