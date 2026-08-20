@@ -36,7 +36,13 @@ const PORT = process.env.PORT || 3000;
 // =============================================================================
 
 app.use(cors({
-  origin: ['http://127.0.0.1:5500', 'http://localhost:5500', 'http://localhost:3000'],
+  origin: [
+    'http://127.0.0.1:5500',
+    'http://localhost:5500',
+    'http://localhost:3000',
+    'https://rudrashivani95-lab.github.io',
+    'https://ai-interview-project-74tfatk0b-rudrashivani95-labs-projects.vercel.app'
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
