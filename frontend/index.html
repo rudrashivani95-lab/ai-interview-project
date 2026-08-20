@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PrepMate AI — AI Interview Preparation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="styles/splash.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top prep-navbar">
+  <div class="container">
+
+    <a class="navbar-brand brand" href="index.html">
+      <span class="brand-icon">P</span>
+      PrepMate <span>AI</span>
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#features">Features</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#how-it-works">How It Works</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#interviews">Interviews</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About</a>
+        </li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="login.html" class="login-link" id="navLogin">
+          Login
+        </a>
+
+        <a href="signup.html" class="btn signup-btn" id="navSignup">
+          Get Started
+        </a>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero-section">
+
+  <div class="hero-glow glow-one"></div>
+  <div class="hero-glow glow-two"></div>
+
+  <div class="container">
+    <div class="row align-items-center min-vh-100 pt-5">
+
+      <!-- LEFT -->
+      <div class="col-lg-6 hero-content">
+
+        <div class="hero-badge">
+          <span>✦</span>
+          AI-Powered Interview Preparation
+        </div>
+
+        <h1>
+          Prepare Smarter.
+          <br>
+          <span>Interview Better.</span>
+        </h1>
+
+        <p class="hero-description">
+          Build an ATS-friendly resume, practice realistic AI interviews,
+          improve your communication, and become interview-ready with
+          personalized AI feedback.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a href="signup.html" class="btn primary-btn" id="heroGetStarted">
+            Start Preparing
+            <span>→</span>
+          </a>
+
+          <a href="login.html" class="btn secondary-btn">
+            Login
+          </a>
+
+        </div>
+
+        <div class="hero-trust">
+          <div class="trust-item">
+            <strong>AI</strong>
+            <span>Powered</span>
+          </div>
+
+          <div class="trust-line"></div>
+
+          <div class="trust-item">
+            <strong>ATS</strong>
+            <span>Optimized</span>
+          </div>
+
+          <div class="trust-line"></div>
+
+          <div class="trust-item">
+            <strong>24/7</strong>
+            <span>Practice</span>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- RIGHT -->
+      <div class="col-lg-6">
+
+        <div class="hero-dashboard">
+
+          <div class="dashboard-top">
+            <div>
+              <span class="small-label">YOUR INTERVIEW HUB</span>
+              <h5>Welcome to PrepMate AI</h5>
+            </div>
+
+            <div class="online-dot"></div>
+          </div>
+
+          <!-- SCORE -->
+          <div class="score-card">
+
+            <div class="score-circle">
+              <div>
+                <strong>82</strong>
+                <small>ATS</small>
+              </div>
+            </div>
+
+            <div class="score-info">
+              <span>Resume Score</span>
+              <h4>Great progress!</h4>
+              <p>Improve your keywords to reach 90+</p>
+
+              <div class="progress">
+                <div class="progress-bar" style="width:82%"></div>
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- FEATURE CARDS -->
+          <div class="mini-cards">
+
+            <div class="mini-card">
+              <div class="mini-icon resume-icon">📄</div>
+              <div>
+                <strong>AI Resume</strong>
+                <small>ATS Optimized</small>
+              </div>
+              <span class="mini-arrow">→</span>
+            </div>
+
+            <div class="mini-card">
+              <div class="mini-icon interview-icon">🎤</div>
+              <div>
+                <strong>Mock Interview</strong>
+                <small>Practice with AI</small>
+              </div>
+              <span class="mini-arrow">→</span>
+            </div>
+
+            <div class="mini-card">
+              <div class="mini-icon progress-icon">📊</div>
+              <div>
+                <strong>Progress</strong>
+                <small>Track your growth</small>
+              </div>
+              <span class="mini-arrow">→</span>
+            </div>
+
+          </div>
+
+          <div class="ai-message">
+            <div class="ai-avatar">✦</div>
+
+            <div>
+              <strong>AI Interview Coach</strong>
+              <p>You're ready for your next interview. Keep practicing!</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+
+  <div class="container">
+
+    <div class="section-heading">
+      <span class="section-label">POWERFUL FEATURES</span>
+
+      <h2>
+        Everything you need to
+        <span>land your dream job.</span>
+      </h2>
+
+      <p>
+        One platform to build, practice, analyze and improve your interview performance.
+      </p>
+    </div>
+
+
+    <div class="row g-4">
+
+      <div class="col-md-6 col-lg-3">
+        <div class="feature-card">
+          <div class="feature-icon">📄</div>
+          <h4>AI Resume</h4>
+          <p>
+            Generate professional and ATS-friendly resumes tailored to your target role.
+          </p>
+          <a href="aiResume.html">Explore →</a>
+        </div>
+      </div>
+
+
+      <div class="col-md-6 col-lg-3">
+        <div class="feature-card">
+          <div class="feature-icon">⭐</div>
+          <h4>ATS Scoring</h4>
+          <p>
+            Analyze your resume and discover keywords, missing skills and improvement areas.
+          </p>
+          <a href="resumeScore.html">Check Score →</a>
+        </div>
+      </div>
+
+
+      <div class="col-md-6 col-lg-3">
+        <div class="feature-card">
+          <div class="feature-icon">🎙️</div>
+          <h4>Mock Interviews</h4>
+          <p>
+            Practice HR, technical, DSA and role-based interviews with AI.
+          </p>
+          <a href="interviewType.html">Start Practice →</a>
+        </div>
+      </div>
+
+
+      <div class="col-md-6 col-lg-3">
+        <div class="feature-card">
+          <div class="feature-icon">📈</div>
+          <h4>Progress Tracking</h4>
+          <p>
+            Track your scores, strengths, weaknesses and interview improvement.
+          </p>
+          <a href="progress.html">View Progress →</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how-it-works">
+
+  <div class="container">
+
+    <div class="section-heading">
+      <span class="section-label">HOW IT WORKS</span>
+
+      <h2>
+        From preparation to
+        <span>interview confidence.</span>
+      </h2>
+    </div>
+
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-number">01</div>
+        <h4>Build Your Resume</h4>
+        <p>Create a professional manual or AI-powered resume.</p>
+      </div>
+
+      <div class="step-line"></div>
+
+      <div class="step">
+        <div class="step-number">02</div>
+        <h4>Practice Interviews</h4>
+        <p>Choose HR, Technical, DSA, Role-Based or Full Mock interviews.</p>
+      </div>
+
+      <div class="step-line"></div>
+
+      <div class="step">
+        <div class="step-number">03</div>
+        <h4>Get AI Feedback</h4>
+        <p>Receive personalized feedback on every answer.</p>
+      </div>
+
+      <div class="step-line"></div>
+
+      <div class="step">
+        <div class="step-number">04</div>
+        <h4>Track Progress</h4>
+        <p>Monitor your performance and become interview-ready.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- INTERVIEWS -->
+<section class="interview-section" id="interviews">
+
+  <div class="container">
+
+    <div class="interview-banner">
+
+      <div>
+        <span class="section-label">AI MOCK INTERVIEWS</span>
+
+        <h2>
+          Practice like it's
+          <span>the real interview.</span>
+        </h2>
+
+        <p>
+          Choose your interview type and let PrepMate AI challenge you
+          with realistic questions and intelligent feedback.
+        </p>
+
+        <a href="interviewType.html" class="btn primary-btn">
+          Explore Interviews →
+        </a>
+      </div>
+
+      <div class="interview-visual">
+
+        <div class="floating-card card-one">
+          🎯 Technical Accuracy
+          <strong>92%</strong>
+        </div>
+
+        <div class="floating-card card-two">
+          🎤 Communication
+          <strong>86%</strong>
+        </div>
+
+        <div class="interview-avatar">
+          <span>AI</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- CTA -->
+<section class="cta-section" id="about">
+
+  <div class="container">
+
+    <div class="cta-box">
+
+      <span>READY TO GET STARTED?</span>
+
+      <h2>
+        Your next interview
+        <br>
+        starts <span>here.</span>
+      </h2>
+
+      <p>
+        Build your resume. Practice with AI. Track your progress.
+      </p>
+
+      <a href="signup.html" class="btn primary-btn">
+        Start Your Journey →
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+
+  <div class="container">
+
+    <div class="footer-content">
+
+      <div>
+        <a class="brand footer-brand" href="index.html">
+          <span class="brand-icon">P</span>
+          PrepMate <span>AI</span>
+        </a>
+
+        <p>
+          AI-powered interview preparation for your career journey.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html">Register</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 PrepMate AI. All rights reserved.</span>
+      <span>Built for smarter interview preparation.</span>
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="scripts/config.js"></script>
+<script src="scripts/api.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="scripts/config.js"></script>
+<script src="scripts/api.js"></script>
+
+</body>
+</html>

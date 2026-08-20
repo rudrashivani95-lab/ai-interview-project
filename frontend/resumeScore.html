@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Resume Scoring — PrepMate</title>
+    <link rel="icon" href="data:,">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="styles/resumeScore.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="d-flex">
+      <!-- Sidebar -->
+      <nav id="sidebar" class="bg-light">
+        <h5>PrepMate</h5>
+        <ul class="nav flex-column" id="mainNav">
+          <li class="nav-item"><a class="nav-link" id="navDashboard" href="dashboard.html">📊 Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" id="navManualResume" href="manualResume.html">✍️ Manual Resume</a></li>
+          <li class="nav-item"><a class="nav-link" id="navAiResume" href="aiResume.html">🤖 AI Resume</a></li>
+          <li class="nav-item"><a class="nav-link active" id="navResumeScore" href="resumeScore.html">⭐ Resume Scoring</a></li>
+          <li class="nav-item"><a class="nav-link" id="navInterviews" href="interviewType.html">🎤 Interviews</a></li>
+          <li class="nav-item"><a class="nav-link" id="navProgress" href="progress.html">📈 Progress</a></li>
+          <li class="nav-item"><a class="nav-link text-danger" id="navLogout" href="#">🚪 Logout</a></li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="page-header">
+          <div class="header-content">
+            <h2>Resume Scoring & Analysis</h2>
+            <p class="subtitle">Get AI-powered feedback on your resume</p>
+          </div>
+        </div>
+
+        <div class="page-body">
+          <div class="row g-4">
+            <!-- Input Section -->
+            <div class="col-lg-5">
+              <div class="card form-card">
+                <div class="card-body">
+                  <h5 class="card-title mb-4">📝 Enter Your Resume</h5>
+                  
+                  <form id="scoringForm">
+                    <!-- Resume Text -->
+                    <div class="form-group mb-4">
+                      <label for="resumeText" class="form-label">Resume Text *</label>
+                      <textarea id="resumeText" class="form-control" rows="6" placeholder="Paste your resume text here..." required></textarea>
+                    </div>
+
+                    <!-- Keywords -->
+                    <div class="form-group mb-4">
+                      <label for="resumeKeywordsInput" class="form-label">Target Keywords (Optional)</label>
+                      <textarea id="resumeKeywordsInput" class="form-control" rows="2" placeholder="e.g., Python, React, Leadership, AWS"></textarea>
+                      <small class="form-text text-muted">Separate keywords with commas for better keyword matching</small>
+                    </div>
+
+                    <!-- Button Group -->
+                    <div class="d-grid gap-2">
+                      <button type="button" class="btn btn-primary btn-lg" id="scoreResumeBtn">
+                        <i class="fas fa-chart-line me-2"></i> Analyze Resume
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary" id="autoFillResumeBtn">
+                        <i class="fas fa-download me-2"></i> Auto-fill from Latest
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="col-lg-7">
+              <div id="noResultsState" class="empty-state-box">
+                <div class="empty-state-content">
+                  <i class="fas fa-chart-pie empty-icon"></i>
+                  <h5>No Analysis Yet</h5>
+                  <p>Enter your resume text and click "Analyze Resume" to get AI-powered feedback and scoring.</p>
+                </div>
+              </div>
+
+              <div id="resultsSection" style="display: none;">
+                <!-- Score Cards -->
+                <div class="score-grid mb-4">
+                  <div class="score-card">
+                    <div class="score-label">ATS Score</div>
+                    <div class="score-value" id="atsScore">--</div>
+                    <div class="score-bar">
+                      <div id="atsScoreBar" class="score-fill"></div>
+                    </div>
+                  </div>
+                  <div class="score-card">
+                    <div class="score-label">Keyword Match</div>
+                    <div class="score-value" id="keywordScore">--</div>
+                    <div class="score-bar">
+                      <div id="keywordScoreBar" class="score-fill"></div>
+                    </div>
+                  </div>
+                  <div class="score-card">
+                    <div class="score-label">Grammar</div>
+                    <div class="score-value" id="grammarScore">--</div>
+                    <div class="score-bar">
+                      <div id="grammarScoreBar" class="score-fill"></div>
+                    </div>
+                  </div>
+                  <div class="score-card">
+                    <div class="score-label">Length</div>
+                    <div class="score-value" id="lengthScore">--</div>
+                    <div class="score-bar">
+                      <div id="lengthScoreBar" class="score-fill"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Feedback Sections -->
+                <div id="feedbackContainer">
+                  <!-- Strengths -->
+                  <div class="feedback-card mb-3">
+                    <div class="feedback-header">
+                      <h6 class="feedback-title"><i class="fas fa-check-circle text-success me-2"></i> Strengths</h6>
+                    </div>
+                    <ul id="strengthsList" class="feedback-list">
+                      <li>--</li>
+                    </ul>
+                  </div>
+
+                  <!-- Weak Sentences -->
+                  <div class="feedback-card mb-3">
+                    <div class="feedback-header">
+                      <h6 class="feedback-title"><i class="fas fa-exclamation-triangle text-warning me-2"></i> Areas for Improvement</h6>
+                    </div>
+                    <div id="weakSentencesList" class="weak-sentences">
+                      <!-- Weak sentences will be listed here -->
+                    </div>
+                  </div>
+
+                  <!-- Suggestions -->
+                  <div class="feedback-card">
+                    <div class="feedback-header">
+                      <h6 class="feedback-title"><i class="fas fa-lightbulb text-info me-2"></i> Suggestions</h6>
+                    </div>
+                    <ul id="suggestionsList" class="feedback-list">
+                      <li>--</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons mt-4">
+                  <button id="fixWithAiBtn" class="btn btn-primary">
+                    <i class="fas fa-wand-magic-sparkles me-2"></i> Fix With AI
+                  </button>
+                  <button id="newAnalysisBtn" class="btn btn-outline-secondary">
+                    <i class="fas fa-refresh me-2"></i> New Analysis
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingOverlay" class="spinner-overlay" style="display: none;">
+      <div class="spinner-content">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3">Analyzing your resume...</p>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/api.js"></script>
+    <script src="scripts/nav.js"></script>
+    <script src="scripts/resumeScore.js"></script>
+  </body>
+</html>

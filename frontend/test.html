@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+    <style>
+        body { font-family: Arial; max-width: 800px; margin: 50px auto; }
+        .test-section { border: 1px solid #ccc; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 3px; }
+        button:hover { background: #0056b3; }
+        .result { background: #f5f5f5; padding: 10px; margin-top: 10px; border-radius: 3px; overflow-x: auto; }
+        .success { color: green; }
+        .error { color: red; }
+        input { padding: 8px; width: 300px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>API Connectivity Test</h1>
+
+    <div class="test-section">
+        <h2>Config Check</h2>
+        <p>API_BASE: <strong id="apiBase"></strong></p>
+        <button onclick="checkConfig()">Check Config</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Server Health Check</h2>
+        <button onclick="healthCheck()">Check Server Health</button>
+        <div class="result" id="healthResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Signup</h2>
+        <input type="text" id="signupName" placeholder="Full Name" />
+        <input type="email" id="signupEmail" placeholder="Email" />
+        <input type="password" id="signupPassword" placeholder="Password" />
+        <button onclick="testSignup()">Sign Up</button>
+        <div class="result" id="signupResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email" />
+        <input type="password" id="loginPassword" placeholder="Password" />
+        <button onclick="testLogin()">Login</button>
+        <div class="result" id="loginResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Browser Console</h2>
+        <p>Press F12 to open Developer Tools and check the Console tab for detailed logs.</p>
+        <button onclick="openDevTools()">Open DevTools</button>
+    </div>
+
+    <script src="scripts/config.js"></script>
+    <script>
+        function log(msg, type = 'info') {
+            console.log(`[${type.toUpperCase()}]`, msg);
+        }
+
+        function checkConfig() {
+            document.getElementById('apiBase').textContent = window.API_BASE || 'NOT SET';
+            log(`Config API_BASE: ${window.API_BASE}`, 'info');
+        }
+
+        async function healthCheck() {
+            const resultDiv = document.getElementById('healthResult');
+            try {
+                log('Checking server health...', 'info');
+                const response = await fetch(`${API_BASE}/`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await response.json();
+                log(`Health check response: ${JSON.stringify(data)}`, 'success');
+                resultDiv.innerHTML = `<span class="success">✅ Server is healthy</span><pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (err) {
+                log(`Health check error: ${err.message}`, 'error');
+                resultDiv.innerHTML = `<span class="error">❌ Error: ${err.message}</span>`;
+            }
+        }
+
+        async function testSignup() {
+            const resultDiv = document.getElementById('signupResult');
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+
+            if (!name || !email || !password) {
+                resultDiv.innerHTML = `<span class="error">❌ Please fill all fields</span>`;
+                return;
+            }
+
+            try {
+                log(`Attempting signup: name=${name}, email=${email}`, 'info');
+                const response = await fetch(`${API_BASE}/api/auth/signup`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                const data = await response.json();
+                log(`Signup response: ${JSON.stringify(data)}`, response.ok ? 'success' : 'error');
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `<span class="success">✅ Signup successful!</span><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                    localStorage.setItem('token', data.token);
+                    log(`Token saved to localStorage`, 'success');
+                } else {
+                    resultDiv.innerHTML = `<span class="error">❌ Signup failed: ${data.message || 'Unknown error'}</span><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                }
+            } catch (err) {
+                log(`Signup error: ${err.message}`, 'error');
+                resultDiv.innerHTML = `<span class="error">❌ Error: ${err.message}</span>`;
+            }
+        }
+
+        async function testLogin() {
+            const resultDiv = document.getElementById('loginResult');
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email || !password) {
+                resultDiv.innerHTML = `<span class="error">❌ Please fill all fields</span>`;
+                return;
+            }
+
+            try {
+                log(`Attempting login: email=${email}`, 'info');
+                const response = await fetch(`${API_BASE}/api/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+                log(`Login response: ${JSON.stringify(data)}`, response.ok ? 'success' : 'error');
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `<span class="success">✅ Login successful!</span><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                    localStorage.setItem('token', data.token);
+                    log(`Token saved to localStorage`, 'success');
+                } else {
+                    resultDiv.innerHTML = `<span class="error">❌ Login failed: ${data.message || 'Unknown error'}</span><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                }
+            } catch (err) {
+                log(`Login error: ${err.message}`, 'error');
+                resultDiv.innerHTML = `<span class="error">❌ Error: ${err.message}</span>`;
+            }
+        }
+
+        function openDevTools() {
+            alert('DevTools opened! Check the Console tab for detailed logs.');
+            console.clear();
+        }
+
+        // Run on page load
+        window.onload = function() {
+            checkConfig();
+            log('Test page loaded. API_BASE is set.', 'success');
+        };
+    </script>
+</body>
+</html>

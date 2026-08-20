@@ -1,0 +1,199 @@
+/* ========== BASE STYLES ========== */
+body {
+    background: linear-gradient(120deg, #eef6ff, #f8eefb);
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.d-flex {
+    display: flex;
+}
+
+/* ========== SIDEBAR ========== */
+#sidebar {
+    width: 260px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-right: 1px solid #e5e7eb;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+#sidebar h5 {
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1f2937;
+}
+
+.nav-link {
+    color: #6b7280;
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.nav-link:hover {
+    background: #f0f0f0;
+    color: #6f42c1;
+    transform: translateX(4px);
+}
+
+.nav-link.active {
+    background: #f3e8ff;
+    color: #6f42c1;
+    font-weight: 600;
+}
+
+.nav-link.text-danger:hover {
+    background: #fee2e2;
+    color: #dc3545;
+}
+
+/* ========== MAIN CONTENT ========== */
+.main-content {
+    margin-left: 260px;
+    flex: 1;
+    padding: 30px;
+    width: calc(100% - 260px);
+    min-height: 100vh;
+}
+
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+}
+
+.page-header .subtitle {
+    color: #6b7280;
+    margin: 8px 0 0 0;
+    font-size: 14px;
+}
+
+.page-body {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+}
+
+canvas {
+    max-width: 100%;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+    #sidebar {
+        width: 240px;
+    }
+
+    .main-content {
+        margin-left: 240px;
+        width: calc(100% - 240px);
+        padding: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        width: 200px;
+    }
+
+    .main-content {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+        padding: 16px;
+    }
+
+    .page-header h2 {
+        font-size: 22px;
+    }
+
+    .page-body {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    #sidebar {
+        width: 0;
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 12px;
+    }
+
+    .page-header h2 {
+        font-size: 20px;
+    }
+
+    .page-body {
+        padding: 12px;
+    }
+}
+
+/* ========== LOADING OVERLAY ========== */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    backdrop-filter: blur(2px);
+}
+
+.spinner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.spinner-text {
+    color: white;
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: 500;
+}
+

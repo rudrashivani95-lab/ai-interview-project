@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | PrepMate AI</title>
+    <link rel="stylesheet" href="styles/login.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="login-card">
+            <h1 class="title">Welcome Back</h1>
+            <p class="subtitle">Login to continue your AI Interview Prep</p>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="Enter your email" />
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter your password" />
+            </div>
+
+            <button class="login-btn" onclick="handleLogin()">Login</button>
+
+            <p class="register-link">
+                Don’t have an account?  
+                <a href="signup.html">Create one</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="scripts/config.js"></script>
+    <script src="scripts/api.js"></script>
+    <script src="scripts/login.js"></script>
+</body>
+</html>

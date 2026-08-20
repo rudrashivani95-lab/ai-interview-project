@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Avatar Interview - PrepMate</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="styles/avatar-interview.css" rel="stylesheet">
+</head>
+<body>
+  <!-- SCREEN 1: Setup & Configuration -->
+  <div id="setupScreen" class="screen-section screen-active">
+    <div class="setup-container">
+      <div class="setup-card">
+        <div class="setup-header">
+          <h1>AI Avatar Interview</h1>
+          <p>Real-time interview with a lifelike AI avatar</p>
+        </div>
+
+        <!-- Interview Type Selection -->
+        <div class="form-group">
+          <label for="interviewType" class="form-label">Interview Type</label>
+          <select class="form-select" id="interviewType">
+            <option value="">Select an interview type</option>
+            <option value="hr">HR Interview</option>
+            <option value="technical">Technical Interview</option>
+            <option value="behavioral">Behavioral Interview</option>
+            <option value="role-based">Role-Based Interview</option>
+          </select>
+        </div>
+
+        <!-- Job Role -->
+        <div class="form-group">
+          <label for="jobRole" class="form-label">Job Position (Optional)</label>
+          <input type="text" class="form-input" id="jobRole" placeholder="e.g., Senior Full Stack Engineer">
+        </div>
+
+        <!-- Avatar Style -->
+        <div class="form-group">
+          <label for="avatarStyle" class="form-label">Interviewer Personality</label>
+          <select class="form-select" id="avatarStyle">
+            <option value="professional">Professional (Serious, Formal)</option>
+            <option value="friendly">Friendly (Approachable, Warm)</option>
+            <option value="technical">Technical Lead (Expert, Direct)</option>
+          </select>
+        </div>
+
+        <!-- Number of Questions -->
+        <div class="form-group">
+          <label for="questionCount" class="form-label">Number of Questions</label>
+          <div class="question-slider-group">
+            <input type="range" class="form-range" id="questionCount" min="3" max="15" value="5">
+            <div class="slider-info">
+              <span id="questionCountDisplay">5</span> questions
+              <span id="estimatedTime">~7 minutes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Camera/Microphone Check -->
+        <div class="permission-check">
+          <label class="permission-item">
+            <input type="checkbox" id="cameraCheck" checked>
+            <span class="permission-text">
+              <i class="fas fa-video"></i> Camera & Microphone required
+            </span>
+          </label>
+          <button type="button" class="btn-check-permissions" id="checkPermissionsBtn">
+            Check Permissions
+          </button>
+        </div>
+
+        <!-- Start Button -->
+        <button class="btn-primary-large" id="startInterviewBtn">
+          <i class="fas fa-play"></i> Start Interview
+        </button>
+
+        <div class="info-box">
+          <h4>How it works</h4>
+          <ul>
+            <li>An AI avatar will ask you interview questions</li>
+            <li>You answer using your microphone and camera</li>
+            <li>Your responses are analyzed for quality and fit</li>
+            <li>Get instant feedback and scores</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: Interview Session -->
+  <div id="interviewScreen" class="screen-section">
+    <div class="interview-container">
+      <!-- Header with progress -->
+      <div class="interview-header">
+        <div class="progress-info">
+          <span class="question-counter">
+            Question <span id="currentQuestion">1</span> of <span id="totalQuestions">5</span>
+          </span>
+          <span class="timer">
+            <i class="fas fa-clock"></i> <span id="interviewTimer">00:00</span>
+          </span>
+        </div>
+        <button class="btn-close-interview" id="endInterviewBtn" title="End interview">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Main Interview Area -->
+      <div class="interview-main">
+        <!-- Left: Avatar Section -->
+        <div class="avatar-section">
+          <div class="avatar-container">
+            <video id="avatarVideo" class="avatar-video" autoplay playsinline muted crossorigin="anonymous"></video>
+            <div id="avatarPlaceholder" class="avatar-placeholder">
+              <div class="placeholder-content">
+                <i class="fas fa-user-circle"></i>
+                <p>Avatar Loading...</p>
+              </div>
+            </div>
+          </div>
+          <div class="avatar-status">
+            <span id="avatarStatusText" class="status-badge">Ready</span>
+          </div>
+        </div>
+
+        <!-- Center: Question & Transcript -->
+        <div class="content-section">
+          <div class="question-display">
+            <h3>Question:</h3>
+            <p id="questionText" class="question-text">Preparing your first question...</p>
+          </div>
+
+          <div class="transcript-area">
+            <div class="transcript-header">
+              <h4>Transcript</h4>
+              <button class="btn-transcript-clear" id="clearTranscriptBtn">Clear</button>
+            </div>
+            <div id="transcriptBox" class="transcript-content">
+              <div class="transcript-item avatar-message">
+                <span class="speaker">Avatar:</span>
+                <span class="text" id="avatarTranscript">Waiting to start...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: User Camera & Controls -->
+        <div class="user-section">
+          <div class="camera-container">
+            <video id="userCamera" class="user-video" autoplay playsinline muted></video>
+            <div class="camera-overlay">
+              <span id="recordingBadge" class="recording-badge" style="display: none;">
+                <i class="fas fa-circle"></i> Recording
+              </span>
+              <span id="cameraStatus" class="camera-status">Camera Off</span>
+            </div>
+          </div>
+
+          <div class="controls-section">
+            <div class="control-buttons">
+              <button class="btn-control btn-record" id="startRecordingBtn">
+                <i class="fas fa-microphone"></i>
+                <span>Start Answering</span>
+              </button>
+              <button class="btn-control btn-stop" id="stopRecordingBtn" style="display: none;">
+                <i class="fas fa-stop"></i>
+                <span>Stop</span>
+              </button>
+            </div>
+
+            <div class="control-options">
+              <button class="btn-skip" id="skipQuestionBtn">
+                <i class="fas fa-forward"></i> Skip
+              </button>
+              <button class="btn-repeat" id="repeatQuestionBtn">
+                <i class="fas fa-repeat"></i> Repeat
+              </button>
+            </div>
+
+            <div class="recording-info">
+              <div class="info-item">
+                <span class="label">Recording Time:</span>
+                <span id="recordingTime" class="value">0:00</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Status:</span>
+                <span id="interviewStatus" class="value status-ready">Ready</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom: Feedback & Score -->
+      <div class="interview-footer">
+        <div id="feedbackArea" class="feedback-area" style="display: none;">
+          <div class="feedback-content">
+            <div class="feedback-score">
+              <span id="currentScore" class="score-value">0</span>
+              <span class="score-label">/100</span>
+            </div>
+            <div class="feedback-details">
+              <p id="feedbackMessage" class="feedback-text">Processing your answer...</p>
+              <div class="score-breakdown">
+                <div class="breakdown-item">
+                  <span class="label">Clarity:</span>
+                  <span id="clarityScore" class="badge">0/100</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="label">Completeness:</span>
+                  <span id="completenessScore" class="badge">0/100</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="label">Confidence:</span>
+                  <span id="confidenceScore" class="badge">0/100</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: Results -->
+  <div id="resultsScreen" class="screen-section">
+    <div class="results-container">
+      <div class="results-header">
+        <h1>Interview Complete!</h1>
+        <p>Thank you for participating in the AI Avatar Interview</p>
+      </div>
+
+      <div class="results-content">
+        <!-- Overall Score -->
+        <div class="overall-score-card">
+          <div class="score-circle">
+            <span id="overallScore" class="score-number">0</span>
+            <span class="score-max">/100</span>
+          </div>
+          <p id="scoreInterpretation" class="score-interpretation">Calculating...</p>
+        </div>
+
+        <!-- Detailed Breakdown -->
+        <div class="results-breakdown">
+          <h3>Performance Breakdown</h3>
+          <div class="breakdown-grid">
+            <div class="breakdown-card">
+              <h4>Communication</h4>
+              <div class="score-bar">
+                <div id="communicationBar" class="score-fill" style="width: 0%"></div>
+              </div>
+              <span id="communicationScore">0/100</span>
+            </div>
+            <div class="breakdown-card">
+              <h4>Clarity</h4>
+              <div class="score-bar">
+                <div id="clarityBar" class="score-fill" style="width: 0%"></div>
+              </div>
+              <span id="clarityScoreDisplay">0/100</span>
+            </div>
+            <div class="breakdown-card">
+              <h4>Confidence</h4>
+              <div class="score-bar">
+                <div id="confidenceBar" class="score-fill" style="width: 0%"></div>
+              </div>
+              <span id="confidenceScoreDisplay">0/100</span>
+            </div>
+            <div class="breakdown-card">
+              <h4>Technical Accuracy</h4>
+              <div class="score-bar">
+                <div id="technicalBar" class="score-fill" style="width: 0%"></div>
+              </div>
+              <span id="technicalScore">0/100</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Answers Review -->
+        <div class="answers-review">
+          <h3>Your Answers</h3>
+          <div id="answersContainer" class="answers-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="results-actions">
+          <button class="btn-action btn-download" id="downloadReportBtn">
+            <i class="fas fa-download"></i> Download Report
+          </button>
+          <button class="btn-action btn-retry" id="retryBtn">
+            <i class="fas fa-redo"></i> Try Another Interview
+          </button>
+          <a href="dashboard.html" class="btn-action btn-dashboard">
+            <i class="fas fa-chart-line"></i> Go to Dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Modal -->
+  <div id="errorModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Error</h2>
+        <button class="modal-close" id="closeErrorBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="errorMessage">An error occurred</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="dismissErrorBtn">Dismiss</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+    <div class="loading-content">
+      <div class="spinner"></div>
+      <p id="loadingText">Loading...</p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="scripts/avatar-interview-engine.js"></script>
+</body>
+</html>

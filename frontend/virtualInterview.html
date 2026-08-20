@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrepMate - Virtual Interview</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="styles/interview-professional.css" rel="stylesheet">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <!-- SCREEN 1: Setup -->
+  <div id="setupScreen" class="screen-section screen-active">
+    <div class="setup-container">
+      <div class="setup-card">
+        <h2 class="setup-heading">Start Your Interview</h2>
+
+        <!-- Interview Type Selection -->
+        <div class="form-group">
+          <label for="interviewType" class="form-label">Interview Type</label>
+          <select class="form-select" id="interviewType">
+            <option value="">Select an interview type</option>
+            <option value="hr">HR Interview</option>
+            <option value="technical">Technical Interview</option>
+            <option value="dsa">Data Structures & Algorithms</option>
+            <option value="behavioral">Behavioral Interview</option>
+            <option value="role-based">Role-Based Interview</option>
+          </select>
+        </div>
+
+        <!-- Number of Questions -->
+        <div class="form-group">
+          <label for="questionCount" class="form-label">Number of Questions</label>
+          <div class="question-count-slider">
+            <input type="range" class="form-range" id="questionCount" min="3" max="15" value="10">
+            <div class="duration-info">
+              <span id="questionCountDisplay">10</span> questions • Duration: <span id="durationEstimate">~15 minutes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Instructions Box -->
+        <div class="instructions-box">
+          <div class="instructions-content">
+            <p class="instructions-item"><span class="check-mark">✓</span> Ensure camera and microphone are working</p>
+            <p class="instructions-item"><span class="check-mark">✓</span> Use a clean, well-lit background</p>
+            <p class="instructions-item"><span class="check-mark">✓</span> Speak clearly and maintain eye contact</p>
+            <p class="instructions-item"><span class="check-mark">✓</span> Provide thoughtful, detailed answers</p>
+          </div>
+        </div>
+
+        <!-- Start Button -->
+        <button class="btn-primary-modern" id="startInterviewBtn">
+          <span>Start Interview</span>
+        </button>
+
+        <p class="consent-text">Your responses will be recorded and analyzed. No data is stored without your consent.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: Interviewer Selection -->
+  <div id="interviewerSelectionScreen" class="screen-section">
+    <div class="setup-container">
+      <div class="setup-card">
+        <h2 class="setup-heading">Select Your Interviewer</h2>
+        <p class="selection-subtitle">Choose who will conduct your interview. A personality type will be randomly assigned.</p>
+
+        <!-- Interviewer Options -->
+        <div class="interviewer-options">
+          <!-- Male Interviewer Card -->
+          <div class="interviewer-card" data-interviewer="male">
+            <div class="card-inner">
+              <div class="interviewer-image">
+                <svg class="interviewer-avatar male-avatar" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="100" cy="70" r="35" fill="#D4A574"/>
+                  <path d="M 65 70 Q 65 35 100 35 Q 135 35 135 70" fill="#3E2723"/>
+                  <circle cx="88" cy="65" r="4" fill="#1A1A1A"/>
+                  <circle cx="112" cy="65" r="4" fill="#1A1A1A"/>
+                  <path d="M 100 65 L 100 80" stroke="#A68A7A" stroke-width="2" fill="none"/>
+                  <path d="M 88 85 Q 100 92 112 85" stroke="#8B6F47" stroke-width="2" fill="none"/>
+                  <rect x="85" y="100" width="30" height="25" fill="#D4A574"/>
+                  <ellipse cx="100" cy="135" rx="50" ry="30" fill="#4A90E2"/>
+                  <path d="M 50 135 L 60 135 L 65 170 L 135 170 L 140 135 L 150 135" fill="#2E5C8A"/>
+                </svg>
+              </div>
+              <div class="card-radio">
+                <input type="radio" name="interviewer" value="male" id="radio-male" class="interviewer-radio">
+              </div>
+            </div>
+            <div class="card-title">Male Interviewer</div>
+            <div class="card-description">Professional HR experience</div>
+          </div>
+
+          <!-- Female Interviewer Card -->
+          <div class="interviewer-card" data-interviewer="female">
+            <div class="card-inner">
+              <div class="interviewer-image">
+                <svg class="interviewer-avatar female-avatar" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="100" cy="70" r="35" fill="#D4A574"/>
+                  <path d="M 65 60 Q 65 35 100 35 Q 135 35 135 60 Q 135 65 130 75 Q 125 85 100 88 Q 75 85 70 75 Q 65 65 65 60" fill="#6B4423"/>
+                  <circle cx="88" cy="65" r="4" fill="#1A1A1A"/>
+                  <circle cx="112" cy="65" r="4" fill="#1A1A1A"/>
+                  <line x1="85" y1="60" x2="82" y2="55" stroke="#1A1A1A" stroke-width="1"/>
+                  <line x1="91" y1="60" x2="94" y2="55" stroke="#1A1A1A" stroke-width="1"/>
+                  <line x1="115" y1="60" x2="112" y2="55" stroke="#1A1A1A" stroke-width="1"/>
+                  <line x1="109" y1="60" x2="106" y2="55" stroke="#1A1A1A" stroke-width="1"/>
+                  <path d="M 100 65 L 100 80" stroke="#A68A7A" stroke-width="1.5" fill="none"/>
+                  <path d="M 85 87 Q 100 95 115 87" stroke="#C97E92" stroke-width="2" fill="none"/>
+                  <rect x="85" y="100" width="30" height="25" fill="#D4A574"/>
+                  <ellipse cx="100" cy="135" rx="50" ry="30" fill="#5B9F5A"/>
+                  <path d="M 50 135 L 60 135 L 65 170 L 135 170 L 140 135 L 150 135" fill="#3D6B3F"/>
+                </svg>
+              </div>
+              <div class="card-radio">
+                <input type="radio" name="interviewer" value="female" id="radio-female" class="interviewer-radio">
+              </div>
+            </div>
+            <div class="card-title">Female Interviewer</div>
+            <div class="card-description">Professional HR experience</div>
+          </div>
+
+          <!-- Random Interviewer Card -->
+          <div class="interviewer-card" data-interviewer="random">
+            <div class="card-inner">
+              <div class="interviewer-image">
+                <svg class="interviewer-avatar random-avatar" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="100" cy="100" r="70" fill="#E8EEFB" stroke="#5e72e4" stroke-width="2"/>
+                  <text x="100" y="130" font-size="80" font-weight="bold" text-anchor="middle" fill="#5e72e4" font-family="Inter">?</text>
+                </svg>
+              </div>
+              <div class="card-radio">
+                <input type="radio" name="interviewer" value="random" id="radio-random" class="interviewer-radio">
+              </div>
+            </div>
+            <div class="card-title">Random Interviewer</div>
+            <div class="card-description">System will randomly choose</div>
+          </div>
+        </div>
+
+        <!-- Continue Button -->
+        <button class="btn-primary-modern" id="continueInterviewBtn" style="margin-top: 30px;">
+          <span>Continue to Interview</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: Interview Session -->
+  <div id="interviewScreen" class="screen-section">
+    <div class="interview-main-container">
+      <!-- Interviewer Section -->
+      <div class="interviewer-section">
+        <div class="interviewer-panel">
+          <div class="avatar-container">
+            <div class="interviewer-image-display" id="interviewerImageDisplay">
+  <video id="aiInterviewer" autoplay loop muted playsinline style="width:230px; border-radius:12px;">
+  <source src="Videos/female.mp4" type="Video/mp4">
+</video>
+
+</div>
+
+          </div>
+          <div class="interviewer-label" id="interviewerLabel">Interviewer</div>
+          <div class="status-display">
+            <span id="interviewerStatus" class="status-text">Ready</span>
+          </div>
+          <div class="question-container">
+            <div class="question-number">
+              Question <span id="currentQuestionNum">1</span> of <span id="totalQuestionsNum">10</span>
+            </div>
+            <div class="question-text" id="questionText">Preparing your interview...</div>
+          </div>
+          <div class="audio-visualizer-container" id="visualizerContainer">
+            <div class="pulse-wave">
+              <div class="pulse-ring pulse-ring-1"></div>
+              <div class="pulse-ring pulse-ring-2"></div>
+              <div class="pulse-ring pulse-ring-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Camera Section -->
+      <div class="camera-section">
+        <video id="userCamera" autoplay playsinline muted class="camera-feed"></video>
+        <div class="camera-overlay">
+          <div id="recordingIndicator" class="recording-badge" style="display: none;">
+            <span class="recording-pulse"></span> Recording
+          </div>
+          <div id="userTimer" class="elapsed-time">0:00</div>
+        </div>
+        <div id="processingMessage" class="processing-overlay" style="display: none;">
+          <div class="processing-content">
+            <div class="processing-spinner"></div>
+            <p>Processing your response...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls Section -->
+    <div class="interview-controls">
+      <button class="btn-control btn-stop" id="stopRecordingBtn" style="display: none;">Stop</button>
+      <button class="btn-control btn-skip" id="skipQuestionBtn">Skip</button>
+      <button class="btn-control btn-end" id="endInterviewBtn">End Interview</button>
+    </div>
+
+    <!-- Feedback Toast -->
+    <div id="feedbackToast" class="feedback-toast" style="display: none;">
+      <div class="feedback-content">
+        <div class="feedback-score" id="feedbackScore"></div>
+        <div class="feedback-text" id="feedbackText"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: Results -->
+  <div id="resultsScreen" class="screen-section">
+    <div class="results-container">
+      <h2 class="results-heading">Interview Complete</h2>
+      <div class="overall-score-display">
+        <div class="score-circle">
+          <span id="overallScore" class="score-number">0</span>
+          <span class="score-max">/100</span>
+        </div>
+        <p class="score-label">Overall Performance</p>
+      </div>
+      <div class="scores-breakdown">
+        <div class="score-breakdown-item">
+          <div class="score-breakdown-label">Communication</div>
+          <div class="score-breakdown-bar">
+            <div class="score-breakdown-fill" id="communicationScoreFill"></div>
+          </div>
+          <div class="score-breakdown-value" id="communicationScoreValue">0</div>
+        </div>
+        <div class="score-breakdown-item">
+          <div class="score-breakdown-label">Confidence</div>
+          <div class="score-breakdown-bar">
+            <div class="score-breakdown-fill" id="confidenceScoreFill"></div>
+          </div>
+          <div class="score-breakdown-value" id="confidenceScoreValue">0</div>
+        </div>
+        <div class="score-breakdown-item">
+          <div class="score-breakdown-label">Technical Knowledge</div>
+          <div class="score-breakdown-bar">
+            <div class="score-breakdown-fill" id="technicalScoreFill"></div>
+          </div>
+          <div class="score-breakdown-value" id="technicalScoreValue">0</div>
+        </div>
+      </div>
+      <div class="feedback-summary">
+        <h3>Feedback</h3>
+        <div id="feedbackSummary" class="feedback-summary-content"></div>
+      </div>
+      <div class="recommendations-list">
+        <h3>Recommendations</h3>
+        <ul id="recommendationsList" class="recommendations-items"></ul>
+      </div>
+      <div class="results-actions">
+        <button class="btn-secondary-modern" id="downloadReportBtn">Download Report</button>
+        <button class="btn-secondary-modern" id="retryInterviewBtn">Try Another</button>
+        <a href="dashboard.html" class="btn-secondary-modern">Go to Dashboard</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="scripts/interview-professional.js"></script>
+</body>
+</html>

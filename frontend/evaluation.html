@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Evaluation — PrepMate AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/evaluation.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="dashboard.html">PrepMate AI</a>
+      </div>
+    </nav>
+
+    <main class="container py-5">
+      <h4>Evaluation & Scoring</h4>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5>Interview Evaluation</h5>
+              <p><strong>Technical:</strong> <span id="technicalScore">--</span></p>
+              <p><strong>Communication:</strong> <span id="communicationScore">--</span></p>
+              <p><strong>Confidence:</strong> <span id="confidenceScore">--</span></p>
+              <p><strong>Overall:</strong> <span id="overallScoreEval">--</span></p>
+              <div class="mt-3">
+                <button id="evaluateInterviewBtn" class="btn btn-primary">Re-evaluate</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5>Feedback</h5>
+              <div id="evaluationFeedback" class="border p-3">No feedback yet</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h5>Actions</h5>
+              <button id="exportReportBtn" class="btn btn-outline-secondary">Export Report</button>
+              <a id="goToFinalReport" class="btn btn-primary ms-2" href="finalReport.html">Final Report</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/api.js"></script>
+    <script src="scripts/evaluation.js"></script>
+  </body>
+</html>

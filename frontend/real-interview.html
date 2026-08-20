@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Human AI Video Interview - PrepMate </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="styles/real-interview.css" rel="stylesheet">
+</head>
+<body>
+  <!-- SCREEN 1: Setup & Configuration -->
+  <div id="setupScreen" class="screen-section screen-active">
+    <div class="setup-container">
+      <div class="setup-card">
+        <div class="setup-header">
+          <h1>AI Video Interview</h1>
+          <p>Real-time interview with a realistic human AI interviewer</p>
+        </div>
+
+        <!-- Interview Type Selection -->
+        <div class="form-group">
+          <label for="interviewType" class="form-label">Interview Type</label>
+          <select class="form-select" id="interviewType">
+            <option value="">Select an interview type</option>
+            <option value="hr">HR Interview</option>
+            <option value="technical">Technical Interview</option>
+            <option value="behavioral">Behavioral Interview</option>
+            <option value="role-based">Role-Based Interview</option>
+          </select>
+        </div>
+
+        <!-- Job Role -->
+        <div class="form-group">
+          <label for="jobRole" class="form-label">Job Position</label>
+          <input type="text" class="form-input" id="jobRole" placeholder="e.g., Senior Full Stack Engineer">
+        </div>
+
+        <!-- Interviewer Selection -->
+        <div class="form-group">
+          <label for="interviewerType" class="form-label">Interviewer Style</label>
+          <select class="form-select" id="interviewerType">
+            <option value="professional-male">Professional (Male)</option>
+            <option value="professional-female">Professional (Female)</option>
+            <option value="friendly-male">Friendly (Male)</option>
+            <option value="friendly-female">Friendly (Female)</option>
+            <option value="technical-male">Technical Lead (Male)</option>
+            <option value="technical-female">Technical Lead (Female)</option>
+          </select>
+        </div>
+
+        <!-- AI Interviewer Gender -->
+        <div class="form-group">
+          <label class="form-label">AI Interviewer Gender</label>
+          <div class="radio-group">
+            <label class="radio-item">
+              <input type="radio" name="interviewerGender" value="male" checked>
+              <span class="radio-label">Male Interviewer</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="interviewerGender" value="female">
+              <span class="radio-label">Female Interviewer</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Number of Questions -->
+        <div class="form-group">
+          <label for="questionCount" class="form-label">Number of Questions</label>
+          <div class="question-slider-group">
+            <input type="range" class="form-range" id="questionCount" min="3" max="15" value="5">
+            <div class="slider-info">
+              <span id="questionCountDisplay">5</span> questions
+              <span id="estimatedTime">~15 minutes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Camera/Microphone Check -->
+        <div class="permission-check">
+          <label class="permission-item">
+            <input type="checkbox" id="cameraCheck" checked>
+            <span class="permission-text">
+              <i class="fas fa-video"></i> Camera & Microphone required
+            </span>
+          </label>
+          <button type="button" class="btn-check-permissions" id="checkPermissionsBtn">
+            Check Permissions
+          </button>
+        </div>
+
+        <!-- Start Button -->
+        <button class="btn-primary-large" id="startInterviewBtn">
+          <i class="fas fa-play"></i> Start Interview
+        </button>
+
+        <div class="info-box">
+          <h4>Real Human AI Interviewer</h4>
+          <ul>
+            <li>🎥 Realistic human video interviewer with natural facial expressions</li>
+            <li>🎤 Speak naturally - your speech is converted to text</li>
+            <li>🧠 AI processes your answer and generates personalized follow-ups</li>
+            <li>💬 Avatar lip-syncs and responds with realistic body language</li>
+            <li>📊 Get instant feedback and performance analysis</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: Interview Session -->
+  <div id="interviewScreen" class="screen-section">
+    <div class="interview-container">
+      <!-- Header with progress -->
+      <div class="interview-header">
+        <div class="progress-info">
+          <span class="question-counter">
+            Question <span id="currentQuestion">1</span> of <span id="totalQuestions">5</span>
+          </span>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+        </div>
+        <div class="interview-timer">
+          <i class="fas fa-clock"></i> <span id="elapsedTime">00:00</span>
+        </div>
+      </div>
+
+      <!-- Main Interview Area: 2-Column Layout -->
+      <div class="interview-main">
+        <!-- LEFT: Interviewer Video -->
+        <div class="interviewer-section">
+          <div class="video-container interviewer-video-container">
+            <div id="interviewerVideoWrapper" class="video-wrapper">
+              <!-- D-ID or HeyGen Real-Time Avatar Container -->
+              <iframe
+                id="avatarIframe"
+                allow="microphone"
+                style="width: 100%; height: 100%; border: none; border-radius: 12px;"
+              ></iframe>
+            </div>
+            <!-- HeyGen Real-Time AI Interviewer Container -->
+            <div id="aiRealInterviewer" class="ai-interviewer-container" style="display: none;">
+              <!-- Real-time HeyGen agent video will render here -->
+            </div>
+            <!-- Interviewer Status -->
+            <div class="interviewer-status">
+              <span class="status-badge" id="interviewerStatus">Listening...</span>
+            </div>
+          </div>
+
+          <!-- Current Question Display -->
+          <div class="current-question-box">
+            <h3>Current Question</h3>
+            <p id="questionText">Loading question...</p>
+          </div>
+        </div>
+
+        <!-- RIGHT: User Camera & Controls -->
+        <div class="user-section">
+          <!-- User Camera Feed -->
+          <div class="video-container user-video-container">
+            <video id="userCamera" autoplay muted playsinline></video>
+            <div class="camera-overlay" id="cameraOverlay">
+              <span class="recording-indicator hidden" id="recordingIndicator">
+                <i class="fas fa-circle"></i> Recording
+              </span>
+            </div>
+          </div>
+
+          <!-- Recording Controls -->
+          <div class="recording-controls">
+            <button id="startRecordingBtn" class="btn-record">
+              <i class="fas fa-microphone"></i> Start Answer
+            </button>
+            <button id="stopRecordingBtn" class="btn-stop hidden">
+              <i class="fas fa-stop-circle"></i> Stop Answer
+            </button>
+            <div class="audio-level-meter">
+              <div class="audio-level-bar" id="audioLevelBar"></div>
+            </div>
+          </div>
+
+          <!-- Transcript Display -->
+          <div class="transcript-box">
+            <div class="transcript-header">Your Answer (Live)</div>
+            <div class="transcript-content" id="transcriptContent">
+              <p class="placeholder-text">Your speech will appear here...</p>
+            </div>
+          </div>
+
+          <!-- Real-Time Feedback -->
+          <div class="feedback-box">
+            <div class="feedback-item">
+              <span class="feedback-label">Clarity:</span>
+              <div class="feedback-bar">
+                <div class="feedback-progress" id="clarityBar" style="width: 0%"></div>
+              </div>
+            </div>
+            <div class="feedback-item">
+              <span class="feedback-label">Confidence:</span>
+              <div class="feedback-bar">
+                <div class="feedback-progress" id="confidenceBar" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Action Bar -->
+      <div class="interview-footer">
+        <button id="repeatQuestionBtn" class="btn-secondary">
+          <i class="fas fa-redo"></i> Repeat
+        </button>
+        <button id="nextQuestionBtn" class="btn-secondary hidden">
+          <i class="fas fa-arrow-right"></i> Next Question
+        </button>
+        <button id="skipQuestionBtn" class="btn-secondary">
+          <i class="fas fa-forward"></i> Skip
+        </button>
+        <button id="endInterviewBtn" class="btn-danger">
+          <i class="fas fa-times"></i> End Interview
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: Results & Analysis -->
+  <div id="resultsScreen" class="screen-section">
+    <div class="results-container">
+      <div class="results-header">
+        <h1>Interview Complete</h1>
+        <p>Your performance analysis</p>
+      </div>
+
+      <!-- Overall Score -->
+      <div class="score-section">
+        <div class="score-circle">
+          <div class="score-number" id="overallScore">0</div>
+          <div class="score-label">Overall Score</div>
+        </div>
+      </div>
+
+      <!-- Performance Breakdown -->
+      <div class="breakdown-section">
+        <div class="breakdown-grid">
+          <div class="breakdown-card">
+            <div class="breakdown-icon"><i class="fas fa-comments"></i></div>
+            <div class="breakdown-title">Communication</div>
+            <div class="breakdown-score" id="communicationScore">0</div>
+            <p id="communicationFeedback"></p>
+          </div>
+          <div class="breakdown-card">
+            <div class="breakdown-icon"><i class="fas fa-brain"></i></div>
+            <div class="breakdown-title">Technical Knowledge</div>
+            <div class="breakdown-score" id="technicalScore">0</div>
+            <p id="technicalFeedback"></p>
+          </div>
+          <div class="breakdown-card">
+            <div class="breakdown-icon"><i class="fas fa-star"></i></div>
+            <div class="breakdown-title">Confidence</div>
+            <div class="breakdown-score" id="confidenceScore">0</div>
+            <p id="confidenceFeedback"></p>
+          </div>
+          <div class="breakdown-card">
+            <div class="breakdown-icon"><i class="fas fa-target"></i></div>
+            <div class="breakdown-title">Relevance</div>
+            <div class="breakdown-score" id="relevanceScore">0</div>
+            <p id="relevanceFeedback"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q&A Review -->
+      <div class="review-section">
+        <h3>Interview Summary</h3>
+        <div class="qa-list" id="qaList">
+          <!-- Q&A pairs will be inserted here -->
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="results-actions">
+        <button id="downloadReportBtn" class="btn-primary-large">
+          <i class="fas fa-download"></i> Download Report
+        </button>
+        <button id="restartBtn" class="btn-secondary-large">
+          <i class="fas fa-redo"></i> Try Again
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Error/Notification -->
+  <div id="errorModal" class="modal hidden">
+    <div class="modal-content error-modal">
+      <div class="modal-header">
+        <h2>Error</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body" id="errorMessage"></div>
+      <div class="modal-footer">
+        <button class="btn-primary" id="errorCloseBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Permission Check -->
+  <div id="permissionModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Permission Check</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="permission-check-item">
+          <span id="cameraStatus">🔴</span>
+          <span>Camera Access</span>
+        </div>
+        <div class="permission-check-item">
+          <span id="microphoneStatus">🔴</span>
+          <span>Microphone Access</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="permissionRetryBtn">Retry</button>
+        <button class="btn-primary" id="permissionProceedBtn">Proceed</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+      <p id="loadingText">Preparing interview...</p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="scripts/config.js"></script>
+  <script src="scripts/real-interview-engine.js"></script>
+  <script src="scripts/avatar-manager.js"></script>
+  <script src="scripts/speech-manager.js"></script>
+  <script src="scripts/api-client.js"></script>
+  <script src="scripts/emotion-detector.js"></script>
+  <script src="services/heygenRealtimeService.js"></script>
+  <script src="scripts/liveInterviewer.js"></script>
+</body>
+</html>

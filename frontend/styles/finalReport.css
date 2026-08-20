@@ -1,0 +1,3 @@
+body{background:linear-gradient(180deg,#f8fbff,#fef7ff)}
+.card{border-radius:10px}
+#finalReportDetails .list-group-item{display:flex;justify-content:space-between}

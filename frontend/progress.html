@@ -1,0 +1,1171 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>Progress — PrepMate AI</title>
+
+  <!-- Bootstrap -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- Font Awesome -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Project CSS -->
+  <link
+    href="styles/progress.css"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    /* =====================================================
+       PAGE
+       ===================================================== */
+
+    body {
+      margin: 0;
+      background: #f7f8fc;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #1f2937;
+    }
+
+
+    /* =====================================================
+       SIDEBAR
+       ===================================================== */
+
+    #sidebar {
+      width: 255px;
+      min-height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      background: #ffffff !important;
+      border-right: 1px solid #e5e7eb;
+      padding: 26px 15px;
+      z-index: 1000;
+    }
+
+    #sidebar h5 {
+      color: #7041d8;
+      font-size: 21px;
+      font-weight: 800;
+      margin: 0 0 30px 15px;
+    }
+
+    #mainNav {
+      gap: 7px;
+    }
+
+    #mainNav .nav-link {
+      color: #667085;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 13px 16px;
+      border-radius: 9px;
+      transition: 0.2s ease;
+    }
+
+    #mainNav .nav-link:hover {
+      background: #f4efff;
+      color: #7041d8;
+    }
+
+    #mainNav .nav-link.active {
+      background: #f0e8ff;
+      color: #7041d8;
+      border-left: 3px solid #7041d8;
+    }
+
+
+    /* =====================================================
+       MAIN CONTENT
+       ===================================================== */
+
+    .main-content {
+      margin-left: 255px;
+      min-height: 100vh;
+    }
+
+
+    /* =====================================================
+       HEADER
+       ===================================================== */
+
+    .page-header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 28px 36px;
+    }
+
+    .header-content h2 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    .subtitle {
+      margin: 6px 0 0;
+      color: #667085;
+      font-size: 14px;
+    }
+
+
+    /* =====================================================
+       BODY
+       ===================================================== */
+
+    .page-body {
+      padding: 30px 36px 50px;
+    }
+
+
+    /* =====================================================
+       STAT CARDS
+       ===================================================== */
+
+    .stat-card {
+      background: #ffffff;
+      border: 1px solid #e6e8ef;
+      border-radius: 14px;
+      padding: 22px;
+      height: 100%;
+      box-shadow: 0 3px 12px rgba(20, 20, 40, 0.04);
+    }
+
+    .stat-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: #f1eaff;
+      color: #7041d8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      margin-bottom: 16px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #667085;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: #111827;
+      margin-top: 4px;
+    }
+
+    .stat-description {
+      color: #98a2b3;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+
+    /* =====================================================
+       CARDS
+       ===================================================== */
+
+    .dashboard-card {
+      background: #ffffff;
+      border: 1px solid #e6e8ef;
+      border-radius: 14px;
+      box-shadow: 0 3px 12px rgba(20, 20, 40, 0.04);
+      overflow: hidden;
+    }
+
+    .dashboard-card-header {
+      padding: 20px 22px 10px;
+    }
+
+    .dashboard-card-header h5 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 750;
+      color: #111827;
+    }
+
+    .dashboard-card-header p {
+      margin: 5px 0 0;
+      font-size: 12px;
+      color: #98a2b3;
+    }
+
+    .dashboard-card-body {
+      padding: 20px 22px 24px;
+    }
+
+
+    /* =====================================================
+       CHART
+       ===================================================== */
+
+    .chart-container {
+      position: relative;
+      height: 310px;
+    }
+
+
+    /* =====================================================
+       RESUME SCORE LIST
+       ===================================================== */
+
+    .score-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #eef0f4;
+    }
+
+    .score-item:last-child {
+      border-bottom: none;
+    }
+
+    .score-name {
+      font-size: 14px;
+      font-weight: 650;
+      color: #344054;
+    }
+
+    .score-date {
+      font-size: 11px;
+      color: #98a2b3;
+      margin-top: 3px;
+    }
+
+    .score-badge {
+      min-width: 55px;
+      text-align: center;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: #f1eaff;
+      color: #7041d8;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+
+    /* =====================================================
+       WEAK TOPICS
+       ===================================================== */
+
+    .topic-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #eef0f4;
+    }
+
+    .topic-item:last-child {
+      border-bottom: none;
+    }
+
+    .topic-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #344054;
+    }
+
+    .topic-level {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: #fff1f2;
+      color: #d92d20;
+      font-weight: 700;
+    }
+
+
+    /* =====================================================
+       EMPTY STATE
+       ===================================================== */
+
+    .empty-state {
+      text-align: center;
+      padding: 45px 20px;
+      color: #98a2b3;
+    }
+
+    .empty-state i {
+      font-size: 38px;
+      margin-bottom: 14px;
+      color: #d0d5dd;
+    }
+
+    .empty-state h6 {
+      color: #667085;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .empty-state p {
+      font-size: 12px;
+      margin: 0;
+    }
+
+
+    /* =====================================================
+       PROGRESS BAR
+       ===================================================== */
+
+    .skill-progress {
+      margin-bottom: 18px;
+    }
+
+    .skill-progress:last-child {
+      margin-bottom: 0;
+    }
+
+    .skill-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 7px;
+    }
+
+    .skill-name {
+      font-size: 12px;
+      font-weight: 650;
+      color: #344054;
+    }
+
+    .skill-percent {
+      font-size: 11px;
+      color: #667085;
+      font-weight: 600;
+    }
+
+    .progress {
+      height: 7px;
+      background: #eef0f4;
+      border-radius: 20px;
+    }
+
+    .progress-bar {
+      background: #7041d8;
+      border-radius: 20px;
+    }
+
+
+    /* =====================================================
+       MOBILE
+       ===================================================== */
+
+    @media (max-width: 900px) {
+
+      #sidebar {
+        width: 210px;
+      }
+
+      .main-content {
+        margin-left: 210px;
+      }
+
+      .page-body,
+      .page-header {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+    }
+
+
+    @media (max-width: 700px) {
+
+      #sidebar {
+        position: relative;
+        width: 100%;
+        min-height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      #mainNav {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+      }
+
+      #mainNav .nav-link {
+        padding: 9px 12px;
+      }
+
+      .page-header {
+        padding: 20px;
+      }
+
+      .page-body {
+        padding: 20px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <!-- =====================================================
+       SIDEBAR
+       ===================================================== -->
+
+  <nav id="sidebar">
+
+    <h5>PrepMate AI</h5>
+
+    <ul
+      class="nav flex-column"
+      id="mainNav"
+    >
+
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          id="navDashboard"
+          href="dashboard.html"
+        >
+          📊 Dashboard
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          id="navManualResume"
+          href="manualResume.html"
+        >
+          ✍️ Manual Resume
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          id="navAiResume"
+          href="aiResume.html"
+        >
+          🤖 AI Resume
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          id="navResumeScore"
+          href="resumeScore.html"
+        >
+          ⭐ Resume Scoring
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          id="navInterviews"
+          href="interviewType.html"
+        >
+          🎤 Interviews
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          id="navVirtualInterview"
+          href="virtualInterview.html"
+        >
+          👤 Virtual Interview
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          id="navProgress"
+          href="progress.html"
+        >
+          📈 Progress
+        </a>
+      </li>
+
+
+      <li class="nav-item mt-4">
+
+        <a
+          class="nav-link text-danger"
+          id="navLogout"
+          href="#"
+        >
+          🚪 Logout
+        </a>
+
+      </li>
+
+    </ul>
+
+  </nav>
+
+
+  <!-- =====================================================
+       MAIN CONTENT
+       ===================================================== -->
+
+  <main class="main-content">
+
+
+    <!-- HEADER -->
+
+    <header class="page-header">
+
+      <div class="header-content">
+
+        <h2>
+          Progress Dashboard
+        </h2>
+
+        <p class="subtitle">
+          Track your interview preparation and improvement journey
+        </p>
+
+      </div>
+
+    </header>
+
+
+    <!-- BODY -->
+
+    <div class="page-body">
+
+
+      <!-- =================================================
+           STATISTICS
+           ================================================= -->
+
+      <div class="row g-4 mb-4">
+
+
+        <!-- Overall Score -->
+
+        <div class="col-md-6 col-xl-3">
+
+          <div class="stat-card">
+
+            <div class="stat-icon">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+
+            <div class="stat-label">
+              Overall Score
+            </div>
+
+            <div
+              class="stat-value"
+              id="statOverall"
+            >
+              --
+            </div>
+
+            <div class="stat-description">
+              Average performance
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Sessions -->
+
+        <div class="col-md-6 col-xl-3">
+
+          <div class="stat-card">
+
+            <div class="stat-icon">
+              <i class="fa-solid fa-microphone"></i>
+            </div>
+
+            <div class="stat-label">
+              Interview Sessions
+            </div>
+
+            <div
+              class="stat-value"
+              id="statSessions"
+            >
+              0
+            </div>
+
+            <div class="stat-description">
+              Practice sessions completed
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Average -->
+
+        <div class="col-md-6 col-xl-3">
+
+          <div class="stat-card">
+
+            <div class="stat-icon">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+
+            <div class="stat-label">
+              Average Score
+            </div>
+
+            <div
+              class="stat-value"
+              id="statAvg"
+            >
+              --
+            </div>
+
+            <div class="stat-description">
+              Across all interviews
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Improvement -->
+
+        <div class="col-md-6 col-xl-3">
+
+          <div class="stat-card">
+
+            <div class="stat-icon">
+              <i class="fa-solid fa-arrow-trend-up"></i>
+            </div>
+
+            <div class="stat-label">
+              Improvement
+            </div>
+
+            <div
+              class="stat-value"
+              id="statImprovement"
+            >
+              --
+            </div>
+
+            <div class="stat-description">
+              Compared with previous sessions
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           CHART + WEAK TOPICS
+           ================================================= -->
+
+      <div class="row g-4 mb-4">
+
+
+        <!-- PERFORMANCE CHART -->
+
+        <div class="col-lg-8">
+
+          <div class="dashboard-card">
+
+            <div class="dashboard-card-header">
+
+              <h5>
+                Performance Over Time
+              </h5>
+
+              <p>
+                Track your interview scores across practice sessions
+              </p>
+
+            </div>
+
+
+            <div class="dashboard-card-body">
+
+              <div class="chart-container">
+
+                <canvas
+                  id="progressChart"
+                ></canvas>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- WEAK TOPICS -->
+
+        <div class="col-lg-4">
+
+          <div class="dashboard-card h-100">
+
+            <div class="dashboard-card-header">
+
+              <h5>
+                Weak Topics
+              </h5>
+
+              <p>
+                Areas that need more practice
+              </p>
+
+            </div>
+
+
+            <div class="dashboard-card-body">
+
+              <div id="weakTopicsList">
+
+                <div class="empty-state">
+
+                  <i class="fa-solid fa-circle-check"></i>
+
+                  <h6>
+                    No weak topics yet
+                  </h6>
+
+                  <p>
+                    Complete an interview to receive personalized recommendations.
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           RESUME SCORES + SKILLS
+           ================================================= -->
+
+      <div class="row g-4">
+
+
+        <!-- RESUME SCORES -->
+
+        <div class="col-lg-7">
+
+          <div class="dashboard-card">
+
+            <div class="dashboard-card-header">
+
+              <h5>
+                Resume Scores
+              </h5>
+
+              <p>
+                Your latest ATS resume performance
+              </p>
+
+            </div>
+
+
+            <div class="dashboard-card-body">
+
+              <div id="resumeScoresList">
+
+                <div class="empty-state">
+
+                  <i class="fa-regular fa-file-lines"></i>
+
+                  <h6>
+                    No resume scores yet
+                  </h6>
+
+                  <p>
+                    Analyze your resume to see your ATS score here.
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- SKILLS -->
+
+        <div class="col-lg-5">
+
+          <div class="dashboard-card">
+
+            <div class="dashboard-card-header">
+
+              <h5>
+                Skill Performance
+              </h5>
+
+              <p>
+                Your current interview skill levels
+              </p>
+
+            </div>
+
+
+            <div class="dashboard-card-body">
+
+
+              <div class="skill-progress">
+
+                <div class="skill-header">
+
+                  <span class="skill-name">
+                    Communication
+                  </span>
+
+                  <span
+                    class="skill-percent"
+                    id="communicationScore"
+                  >
+                    --
+                  </span>
+
+                </div>
+
+                <div class="progress">
+
+                  <div
+                    class="progress-bar"
+                    id="communicationBar"
+                    style="width: 0%"
+                  ></div>
+
+                </div>
+
+              </div>
+
+
+              <div class="skill-progress">
+
+                <div class="skill-header">
+
+                  <span class="skill-name">
+                    Technical Knowledge
+                  </span>
+
+                  <span
+                    class="skill-percent"
+                    id="technicalScore"
+                  >
+                    --
+                  </span>
+
+                </div>
+
+                <div class="progress">
+
+                  <div
+                    class="progress-bar"
+                    id="technicalBar"
+                    style="width: 0%"
+                  ></div>
+
+                </div>
+
+              </div>
+
+
+              <div class="skill-progress">
+
+                <div class="skill-header">
+
+                  <span class="skill-name">
+                    Problem Solving
+                  </span>
+
+                  <span
+                    class="skill-percent"
+                    id="problemScore"
+                  >
+                    --
+                  </span>
+
+                </div>
+
+                <div class="progress">
+
+                  <div
+                    class="progress-bar"
+                    id="problemBar"
+                    style="width: 0%"
+                  ></div>
+
+                </div>
+
+              </div>
+
+
+              <div class="skill-progress">
+
+                <div class="skill-header">
+
+                  <span class="skill-name">
+                    Confidence
+                  </span>
+
+                  <span
+                    class="skill-percent"
+                    id="confidenceScore"
+                  >
+                    --
+                  </span>
+
+                </div>
+
+                <div class="progress">
+
+                  <div
+                    class="progress-bar"
+                    id="confidenceBar"
+                    style="width: 0%"
+                  ></div>
+
+                </div>
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </main>
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+  ></script>
+
+
+  <script src="scripts/config.js"></script>
+
+  <script src="scripts/api.js"></script>
+
+  <script src="scripts/nav.js"></script>
+
+  <script src="scripts/progress.js"></script>
+
+
+  <!-- =====================================================
+       BASIC PROGRESS CHART
+       ===================================================== -->
+
+  <script>
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+
+        const canvas =
+          document.getElementById(
+            "progressChart"
+          );
+
+        if (!canvas) return;
+
+
+        const ctx =
+          canvas.getContext("2d");
+
+
+        /*
+         * Only create the chart if progress.js
+         * has not already created one.
+         */
+
+        if (
+          window.prepMateProgressChart
+        ) {
+          return;
+        }
+
+
+        window.prepMateProgressChart =
+          new Chart(
+            ctx,
+            {
+
+              type: "line",
+
+              data: {
+
+                labels: [
+                  "Session 1",
+                  "Session 2",
+                  "Session 3",
+                  "Session 4",
+                  "Session 5"
+                ],
+
+                datasets: [
+
+                  {
+
+                    label:
+                      "Interview Score",
+
+                    data: [
+                      0,
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+
+                    borderColor:
+                      "#7041d8",
+
+                    backgroundColor:
+                      "rgba(112,65,216,0.08)",
+
+                    borderWidth: 2,
+
+                    fill: true,
+
+                    tension: 0.35,
+
+                    pointRadius: 4,
+
+                    pointHoverRadius: 6
+
+                  }
+
+                ]
+
+              },
+
+
+              options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                plugins: {
+
+                  legend: {
+                    display: false
+                  }
+
+                },
+
+
+                scales: {
+
+                  y: {
+
+                    beginAtZero: true,
+
+                    max: 100,
+
+                    ticks: {
+                      stepSize: 20
+                    },
+
+                    grid: {
+                      color:
+                        "#eef0f4"
+                    }
+
+                  },
+
+
+                  x: {
+
+                    grid: {
+                      display: false
+                    }
+
+                  }
+
+                }
+
+              }
+
+            }
+          );
+
+      }
+
+    );
+
+  </script>
+
+
+</body>
+
+</html>

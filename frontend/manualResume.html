@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Builder | PrepMate AI</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/manualResume.css" />
+</head>
+
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <h2 class="logo">PrepMate AI</h2>
+
+        <nav>
+            <ul class="nav flex-column" id="mainNav">
+              <li class="nav-item">
+                <a class="nav-link" id="navDashboard" href="dashboard.html">
+                  <span class="nav-icon">📊</span>
+                  <span class="nav-text">Dashboard</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" id="navManualResume" href="manualResume.html">
+                  <span class="nav-icon">✍️</span>
+                  <span class="nav-text">Manual Resume</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="navAiResume" href="aiResume.html">
+                  <span class="nav-icon">🤖</span>
+                  <span class="nav-text">AI Resume</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="navResumeScore" href="resumeScore.html">
+                  <span class="nav-icon">⭐</span>
+                  <span class="nav-text">Resume Scoring</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="navInterviews" href="interviewType.html">
+                  <span class="nav-icon">🎤</span>
+                  <span class="nav-text">Interviews</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="navProgress" href="progress.html">
+                  <span class="nav-icon">📈</span>
+                  <span class="nav-text">Progress</span>
+                </a>
+              </li>
+              <li class="nav-item border-top mt-auto pt-3">
+                <a class="nav-link text-danger" id="navLogout" href="#">
+                  <span class="nav-icon">🚪</span>
+                  <span class="nav-text">Logout</span>
+                </a>
+              </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- MAIN AREA -->
+    <main class="content">
+        
+        <header class="topbar">
+            <h1>Resume Builder</h1>
+            <div class="profile">
+                <span id="userEmail">youremail@gmail.com</span>
+                <img src="https://ui-avatars.com/api/?name=User&background=4f46e5&color=fff" class="avatar">
+            </div>
+        </header>
+
+
+        <!-- FORM CONTAINER -->
+        <form id="resumeForm">
+
+            <!-- SECTION 1: Personal Information -->
+            <div class="card">
+                <h3>Personal Details</h3>
+                
+                <div class="two">
+                    <input id="fullName" type="text" placeholder="Full Name *" required>
+                    <input id="email" type="email" placeholder="Email *" required>
+                </div>
+
+                <div class="two">
+                    <input id="phone" type="text" placeholder="Phone Number *">
+                    <input id="location" type="text" placeholder="Location (City, Country)">
+                </div>
+
+                <div class="three">
+                    <input id="linkedin" type="text" placeholder="LinkedIn URL">
+                    <input id="github" type="text" placeholder="GitHub URL">
+                    <input id="portfolio" type="text" placeholder="Portfolio Website">
+                </div>
+
+                <textarea id="summary" placeholder="Professional Summary..."></textarea>
+            </div>
+
+
+            <!-- SECTION 2: Experience -->
+            <div class="card">
+                <div class="sectionHeader">
+                    <h3>Work Experience</h3>
+                    <button type="button" id="add-experience-btn" class="addBtn">+ Add Work Experience</button>
+                </div>
+                <div id="experience-list"></div>
+            </div>
+
+
+            <!-- SECTION 3: Education -->
+            <div class="card">
+                <div class="sectionHeader">
+                    <h3>Education</h3>
+                    <button id="add-education-btn" type="button" class="addBtn">+ Add Education</button>
+                </div>
+                <div id="education-list"></div>
+            </div>
+
+
+            <!-- SECTION 4: Skills -->
+            <div class="card">
+                <h3>Skills</h3>
+                <input id="technicalSkills" type="text" placeholder="Technical Skills (comma separated)">
+                <input id="softSkills" type="text" placeholder="Soft Skills (comma separated)">
+                <input id="languages" type="text" placeholder="Languages (comma separated)">
+                <input id="hobbies" type="text" placeholder="Hobbies & Interests (comma separated)">
+            </div>
+
+            <!-- SECTION 5: Projects -->
+            <div class="card">
+                <div class="sectionHeader">
+                    <h3>Projects</h3>
+                    <button id="add-project-btn" type="button" class="addBtn">+ Add Project</button>
+                </div>
+                <div id="project-list"></div>
+            </div>
+
+
+            <!-- SECTION 6: Certifications -->
+            <div class="card">
+                <div class="sectionHeader">
+                    <h3>Certifications</h3>
+                    <button id="add-cert-btn" type="button" class="addBtn">+ Add Certification</button>
+                </div>
+                <div id="cert-list"></div>
+            </div>
+
+            <!-- SECTION 7: Achievements -->
+            <div class="card">
+                <div class="sectionHeader">
+                    <h3>Achievements</h3>
+                    <button id="add-achievement-btn" type="button" class="addBtn">+ Add Achievement</button>
+                </div>
+                <div id="achievement-list"></div>
+            </div>
+
+
+            <div class="bottomButtons">
+                <button type="button" id="save-draft-btn" class="secondary">💾 Save Draft</button>
+
+                <button type="button" id="save-backend-btn" class="primary">
+                        🚀 Save Resume
+                </button>
+
+                <button type="button" id="download-pdf-btn"
+                    class="primary"
+                    style="background:#22c55e">
+                    📄 Download PDF
+                </button>
+            </div>
+
+            <p id="statusText" class="status"></p>
+
+        </form>
+    </main>
+
+    <!-- Loading Spinner Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+      <div class="spinner-container">
+        <div class="spinner"></div>
+        <p class="spinner-text">Loading...</p>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/api.js"></script>
+    <script src="scripts/nav.js"></script>
+    <script src="scripts/manualResume.js"></script>
+
+</body>
+</html>

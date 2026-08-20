@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AI Resume Builder — PrepMate AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <link href="styles/aiResume.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar" class="sidebar">
+
+    <div class="sidebar-brand">
+      <div class="brand-mark">P</div>
+      <span>PrepMate <strong>AI</strong></span>
+    </div>
+
+    <div class="sidebar-section-label">WORKSPACE</div>
+
+    <nav id="mainNav" class="sidebar-nav">
+
+      <a class="nav-link" href="dashboard.html">
+        <i class="fa-solid fa-chart-column"></i>
+        <span>Dashboard</span>
+      </a>
+
+      <a class="nav-link" href="manualResume.html">
+        <i class="fa-solid fa-pen-to-square"></i>
+        <span>Manual Resume</span>
+      </a>
+
+      <a class="nav-link active" href="aiResume.html">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <span>AI Resume</span>
+      </a>
+
+      <a class="nav-link" href="resumeScore.html">
+        <i class="fa-solid fa-star"></i>
+        <span>Resume Scoring</span>
+      </a>
+
+      <a class="nav-link" href="interviewType.html">
+        <i class="fa-solid fa-microphone"></i>
+        <span>Interviews</span>
+      </a>
+
+      <a class="nav-link" href="virtualInterview.html">
+        <i class="fa-solid fa-user-tie"></i>
+        <span>Virtual Interview</span>
+      </a>
+
+      <a class="nav-link" href="progress.html">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Progress</span>
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+      <a class="nav-link logout-link" id="navLogout" href="#">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <header class="top-header">
+
+      <div>
+        <div class="breadcrumb-text">
+          Resume <span>/</span> AI Resume Builder
+        </div>
+
+        <h1>AI Resume Builder</h1>
+
+        <p>
+          Create an ATS-friendly professional resume tailored to your career.
+        </p>
+      </div>
+
+      <div class="header-ai-badge">
+        <span class="status-dot"></span>
+        AI Ready
+      </div>
+
+    </header>
+
+
+    <section class="page-container">
+
+      <!-- INFO -->
+      <div class="ai-info-banner">
+
+        <div class="ai-info-icon">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </div>
+
+        <div>
+          <strong>Build your resume with AI</strong>
+
+          <p>
+            Add your education, skills, projects and achievements.
+            AI will turn them into a professional resume.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="builder-grid">
+
+
+        <!-- ================= FORM ================= -->
+
+        <section class="builder-form-card">
+
+          <div class="card-heading">
+
+            <div>
+              <span class="heading-label">STEP 1</span>
+
+              <h2>Build Your Profile</h2>
+
+              <p>
+                Enter your information. AI will handle the professional wording.
+              </p>
+            </div>
+
+            <div class="step-icon">
+              <i class="fa-solid fa-user"></i>
+            </div>
+
+          </div>
+
+
+          <form id="aiProfileForm">
+
+
+            <!-- PERSONAL -->
+
+            <div class="form-section">
+
+              <div class="section-title">
+                <i class="fa-regular fa-id-card"></i>
+                Personal Information
+              </div>
+
+
+              <div class="form-row">
+
+                <div class="field">
+
+                  <label for="profileName">
+                    Full Name <span>*</span>
+                  </label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="profileName"
+                    placeholder="Yeldandi Sathwika"
+                    required
+                  >
+
+                </div>
+
+
+                <div class="field">
+
+                  <label for="profileEmail">
+                    Email <span>*</span>
+                  </label>
+
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="profileEmail"
+                    placeholder="you@example.com"
+                    required
+                  >
+
+                </div>
+
+              </div>
+
+
+              <div class="form-row">
+
+                <div class="field">
+
+                  <label for="profilePhone">
+                    Phone
+                  </label>
+
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="profilePhone"
+                    placeholder="+91 9876543210"
+                  >
+
+                </div>
+
+
+                <div class="field">
+
+                  <label for="profileLocation">
+                    Location
+                  </label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="profileLocation"
+                    placeholder="Hyderabad, Telangana"
+                  >
+
+                </div>
+
+              </div>
+
+
+              <div class="form-row">
+
+                <div class="field">
+
+                  <label for="profileLinkedin">
+                    LinkedIn
+                  </label>
+
+                  <input
+                    type="url"
+                    class="form-control"
+                    id="profileLinkedin"
+                    placeholder="https://linkedin.com/in/username"
+                  >
+
+                </div>
+
+
+                <div class="field">
+
+                  <label for="profileGithub">
+                    GitHub
+                  </label>
+
+                  <input
+                    type="url"
+                    class="form-control"
+                    id="profileGithub"
+                    placeholder="https://github.com/username"
+                  >
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- CAREER -->
+
+            <div class="form-section">
+
+              <div class="section-title">
+                <i class="fa-solid fa-briefcase"></i>
+                Career Information
+              </div>
+
+
+              <div class="field">
+
+                <label for="profileTitle">
+                  Target Job Role <span>*</span>
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  id="profileTitle"
+                  placeholder="Software Engineer"
+                  required
+                >
+
+              </div>
+
+
+              <div class="field">
+
+                <label for="profileExperience">
+                  Experience Level <span>*</span>
+                </label>
+
+                <select
+                  class="form-select"
+                  id="profileExperience"
+                  required
+                >
+
+                  <option value="">Select</option>
+
+                  <option value="fresher">
+                    Fresher / Student
+                  </option>
+
+                  <option value="entry">
+                    Entry Level
+                  </option>
+
+                  <option value="junior">
+                    Junior
+                  </option>
+
+                  <option value="mid">
+                    Mid-Level
+                  </option>
+
+                  <option value="senior">
+                    Senior
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <div class="field">
+
+                <label for="profileSummary">
+                  Career Objective / Summary
+                </label>
+
+                <textarea
+                  class="form-control"
+                  id="profileSummary"
+                  rows="4"
+                  placeholder="Tell AI about your career goals, strengths and interests. You can leave this blank and AI will create it."
+                ></textarea>
+
+              </div>
+
+            </div>
+
+
+            <!-- EDUCATION -->
+
+            <!-- EDUCATION -->
+            <div class="form-section">
+
+              <div class="section-title">
+                <i class="fa-solid fa-graduation-cap"></i>
+                Education
+              </div>
+
+              
+
+
+              <!-- ================= HIGHER EDUCATION ================= -->
+
+              <div class="education-block">
+
+                <div class="education-block-header">
+                  <div>
+                    <strong>Higher Education</strong>
+                    <small>B.Tech / B.E. / Degree / Diploma / Master's</small>
+                  </div>
+
+                  <span class="education-number">01</span>
+                </div>
+
+
+                <div class="field">
+
+                  <label for="higherDegree">
+                    Degree / Course
+                  </label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="higherDegree"
+                    placeholder="B.Tech / B.E. / Diploma / MCA / B.Sc..."
+                  >
+
+                </div>
+
+
+                <div class="field">
+
+                  <label for="higherBranch">
+                    Branch / Specialization
+                  </label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="higherBranch"
+                    placeholder="CSE (AI & ML), ECE, Mechanical..."
+                  >
+
+                </div>
+
+
+                <div class="field">
+
+                  <label for="higherCollege">
+                    College / Institution
+                  </label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="higherCollege"
+                    placeholder="Your College Name"
+                  >
+
+                </div>
+
+
+                <div class="form-row">
+
+                  <div class="field">
+
+                    <label for="higherUniversity">
+                      University / Board
+                    </label>
+
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="higherUniversity"
+                      placeholder="JNTUH / Osmania University..."
+                    >
+
+                  </div>
+
+
+                  <div class="field">
+
+                    <label for="higherScore">
+                      CGPA / Percentage
+                    </label>
+
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="higherScore"
+                      placeholder="8.10"
+                    >
+
+                  </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                  <div class="field">
+
+                    <label for="higherStart">
+                      Start Year
+                    </label>
+
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="higherStart"
+                      placeholder="2023"
+                    >
+
+                  </div>
+
+
+                  <div class="field">
+
+                    <label for="higherEnd">
+                      Passing / Graduation Year
+                    </label>
+
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="higherEnd"
+                      placeholder="2027"
+                    >
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <!-- ================= INTERMEDIATE ================= -->
+
+              <div class="education-block">
+
+                <div class="education-block-header">
+
+                  <div>
+                    <strong>Intermediate / 12th</strong>
+                    <small>MPC / BiPC / CEC / MEC / Other</small>
+                  </div>
+
+                  <span class="education-number">02</span>
+
+                </div>
+
+
+                <div class="form-row">
+
+                  <div class="field">
+
+                    <label for="intermediateCourse">
+                      Course / Stream
+                    </label>
+
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="intermediateCourse"
+                      placeholder="MPC / BiPC / CEC / MEC"
+                    >
+
+                  </div>
+
+
+                  <div class="field">
+
+                    <label for="intermediateScore">
+                      Percentage / Marks
+                    </label>
+
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="intermediateScore"
+                      placeholder="92%"
+                    >
+
+                  </div>
+
+                </div>
+
+
+                <div class="field">
+
+                  <label for="intermediateCollege">
+                    College / Institution
+                  </label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="intermediateCollege"
+                    placeholder="Junior College Name"
+                  >
+
+                </div>
+
+
+                <div class="form-row">
+
+                  <div class="field">
+
+                    <label for="intermediateBoard">
+                      Board
+                    </label>
+
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="intermediateBoard"
+                      placeholder="BIE Telangana / CBSE / Other"
+                    >
+
+                  </div>
+
+
+                  <div class="field">
+
+                    <label for="intermediateYear">
+                      Passing Year
+                    </label>
+
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="intermediateYear"
+                      placeholder="2023"
+                    >
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <!-- ================= SSC / 10TH ================= -->
+
+              <div class="education-block">
+
+                <div class="education-block-header">
+
+                  <div>
+                    <strong>SSC / 10th</strong>
+                    <small>SSC / CBSE / ICSE / Other</small>
+                  </div>
+
+                  <span class="education-number">03</span>
+
+                </div>
+
+
+                <div class="field">
+
+                  <label for="schoolName">
+                    School Name
+                  </label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="schoolName"
+                    placeholder="School Name"
+                  >
+
+                </div>
+
+
+                <div class="form-row">
+
+                  <div class="field">
+
+                    <label for="schoolBoard">
+                      Board
+                    </label>
+
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="schoolBoard"
+                      placeholder="BSE Telangana / CBSE / ICSE"
+                    >
+
+                  </div>
+
+
+                  <div class="field">
+
+                    <label for="schoolScore">
+                      Percentage / CGPA
+                    </label>
+
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="schoolScore"
+                      placeholder="95%"
+                    >
+
+                  </div>
+
+                </div>
+
+
+                <div class="field">
+
+                  <label for="schoolYear">
+                    Passing Year
+                  </label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="schoolYear"
+                    placeholder="2021"
+                  >
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- SKILLS -->
+
+            <div class="form-section">
+
+              <div class="section-title">
+                <i class="fa-solid fa-code"></i>
+                Technical Skills
+              </div>
+
+
+              <div class="field">
+
+                <label for="profileSkills">
+                  Skills <span>*</span>
+                </label>
+
+                <textarea
+                  class="form-control"
+                  id="profileSkills"
+                  rows="4"
+                  placeholder="Python, Java, C++, Machine Learning, React, MongoDB, SQL, Git..."
+                  required
+                ></textarea>
+
+                <small>
+                  Separate skills with commas.
+                </small>
+
+              </div>
+
+            </div>
+
+
+            <!-- PROJECTS -->
+
+            <div class="form-section">
+
+              <div class="section-title">
+                <i class="fa-solid fa-laptop-code"></i>
+                Projects
+              </div>
+
+
+              <div class="field">
+
+                <label for="projectName">
+                  Project Name
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  id="projectName"
+                  placeholder="PrepMate AI"
+                >
+
+              </div>
+
+
+              <div class="field">
+
+                <label for="projectDescription">
+                  Project Description
+                </label>
+
+                <textarea
+                  class="form-control"
+                  id="projectDescription"
+                  rows="4"
+                  placeholder="Describe what you built, what problem it solves and your contribution."
+                ></textarea>
+
+              </div>
+
+
+              <div class="field">
+
+                <label for="projectTechnologies">
+                  Technologies Used
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  id="projectTechnologies"
+                  placeholder="Python, FastAPI, React, MongoDB..."
+                >
+
+              </div>
+
+
+              <div class="field">
+
+                <label for="projectGithub">
+                  GitHub / Demo URL
+                </label>
+
+                <input
+                  type="url"
+                  class="form-control"
+                  id="projectGithub"
+                  placeholder="https://github.com/username/project"
+                >
+
+              </div>
+
+            </div>
+
+
+            <!-- INTERNSHIP -->
+
+            <div class="form-section">
+
+              <div class="section-title">
+                <i class="fa-solid fa-building"></i>
+                Internship / Experience
+                <span class="optional">(Optional)</span>
+              </div>
+
+
+              <div class="field">
+
+                <label for="experienceCompany">
+                  Company / Organization
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  id="experienceCompany"
+                  placeholder="Company Name"
+                >
+
+              </div>
+
+
+              <div class="form-row">
+
+                <div class="field">
+
+                  <label for="experienceRole">
+                    Role
+                  </label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="experienceRole"
+                    placeholder="AI/ML Intern"
+                  >
+
+                </div>
+
+
+                <div class="field">
+
+                  <label for="experienceDuration">
+                    Duration
+                  </label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="experienceDuration"
+                    placeholder="2 Months"
+                  >
+
+                </div>
+
+              </div>
+
+
+              <div class="field">
+
+                <label for="experienceDescription">
+                  Responsibilities
+                </label>
+
+                <textarea
+                  class="form-control"
+                  id="experienceDescription"
+                  rows="3"
+                  placeholder="Describe your work and achievements."
+                ></textarea>
+
+              </div>
+
+            </div>
+
+
+            <!-- CERTIFICATIONS -->
+
+            <div class="form-section">
+
+              <div class="section-title">
+                <i class="fa-solid fa-certificate"></i>
+                Certifications
+                <span class="optional">(Optional)</span>
+              </div>
+
+
+              <div class="field">
+
+                <label for="certifications">
+                  Certifications
+                </label>
+
+                <textarea
+                  class="form-control"
+                  id="certifications"
+                  rows="3"
+                  placeholder="Python Certification — Infosys&#10;Machine Learning — Coursera"
+                ></textarea>
+
+              </div>
+
+            </div>
+
+
+            <!-- ACHIEVEMENTS -->
+
+            <div class="form-section">
+
+              <div class="section-title">
+                <i class="fa-solid fa-trophy"></i>
+                Achievements
+                <span class="optional">(Optional)</span>
+              </div>
+
+
+              <div class="field">
+
+                <label for="achievements">
+                  Achievements / Awards
+                </label>
+
+                <textarea
+                  class="form-control"
+                  id="achievements"
+                  rows="3"
+                  placeholder="Hackathons, awards, competitions, scholarships, leadership activities..."
+                ></textarea>
+
+              </div>
+
+            </div>
+
+
+            <!-- JOB -->
+
+            <div class="form-section">
+
+              <div class="section-title">
+                <i class="fa-solid fa-bullseye"></i>
+                Target Job
+              </div>
+
+
+              <div class="field">
+
+                <label for="profileJobUrl">
+                  Job Posting URL
+                  <span class="optional">(Optional)</span>
+                </label>
+
+                <input
+                  type="url"
+                  class="form-control"
+                  id="profileJobUrl"
+                  placeholder="https://company.com/job"
+                >
+
+              </div>
+
+            </div>
+
+
+            <!-- GENERATE -->
+
+            <button
+              type="button"
+              class="generate-button"
+              id="generateAiBtn"
+            >
+
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+              Generate Professional AI Resume
+
+              <i class="fa-solid fa-arrow-right"></i>
+
+            </button>
+
+          </form>
+
+        </section>
+
+
+        <!-- ================= PREVIEW ================= -->
+
+        <section class="preview-column">
+
+          <div id="emptyState" class="empty-state-box">
+
+            <div class="empty-state-content">
+
+              <div class="empty-illustration">
+
+                <div class="document-icon">
+                  <i class="fa-regular fa-file-lines"></i>
+                </div>
+
+              </div>
+
+              <span class="preview-label">
+                LIVE PREVIEW
+              </span>
+
+              <h2>Your professional resume will appear here</h2>
+
+              <p>
+                Add your education, skills, projects and achievements.
+                AI will organize everything into an ATS-friendly resume.
+              </p>
+
+              <div class="preview-features">
+
+                <div>
+                  <i class="fa-solid fa-check"></i>
+                  Fresher Friendly
+                </div>
+
+                <div>
+                  <i class="fa-solid fa-check"></i>
+                  ATS Optimized
+                </div>
+
+                <div>
+                  <i class="fa-solid fa-check"></i>
+                  AI Written
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div
+            id="previewSection"
+            class="preview-card"
+            style="display:none;"
+          >
+
+            <div class="preview-toolbar">
+
+              <div>
+
+                <span class="heading-label">
+                  STEP 2
+                </span>
+
+                <h2>
+                  Generated Resume
+                </h2>
+
+                <p>
+                  Review and download your professional resume.
+                </p>
+
+              </div>
+
+
+              <div class="preview-actions">
+
+                <button
+                  class="action-button"
+                  id="editBtn"
+                  type="button"
+                >
+                  <i class="fa-solid fa-pen"></i>
+                  Edit
+                </button>
+
+                <button
+                  class="action-button"
+                  id="downloadPdfBtn"
+                  type="button"
+                >
+                  <i class="fa-solid fa-file-pdf"></i>
+                  PDF
+                </button>
+
+                <button
+                  class="action-button"
+                  id="downloadDocxBtn"
+                  type="button"
+                >
+                  <i class="fa-solid fa-file-word"></i>
+                  DOCX
+                </button>
+
+                <button
+                  class="action-button"
+                  id="autoFillBtn"
+                  type="button"
+                >
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                  Use in Manual
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="resume-paper-wrapper">
+
+              <div
+                id="aiResumeText"
+                class="resume-preview"
+              ></div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- LOADING -->
+
+<div
+  id="loadingOverlay"
+  class="spinner-overlay"
+  style="display:none;"
+>
+
+  <div class="loading-card">
+
+    <div class="ai-loading-icon">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+    </div>
+
+    <div class="loading-spinner"></div>
+
+    <h3>Creating your resume</h3>
+
+    <p>
+      AI is analyzing your profile and creating a professional resume...
+    </p>
+
+  </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="scripts/config.js"></script>
+<script src="scripts/api.js"></script>
+<script src="scripts/nav.js"></script>
+<script src="scripts/aiResume.js"></script>
+
+</body>
+</html>

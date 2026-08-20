@@ -1,0 +1,83 @@
+// Main server entry: imports routes, sets up middleware, and starts Express
+const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const connectDB = require('./db');
+
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(cors({
+  origin: 'http://127.0.0.1:5500',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
+
+// Import routes
+const authRoutes = require('./routes/authRoutes');
+const resumeRoutes = require('./routes/resumeRoutes');
+const aiResumeRoutes = require('./routes/aiResumeRoutes');
+const interviewRoutes = require('./routes/interviewRoutes');
+const evaluationRoutes = require('./routes/evaluationRoutes');
+const progressRoutes = require('./routes/progressRoutes');
+const interviewAPI = require('./interview-api');
+const virtualInterviewRoutes = require('./routes/virtualInterviewRoutes');
+
+// Mount routes
+app.use('/auth', authRoutes);
+app.use('/api/resumes', resumeRoutes);
+app.use('/api/ai/resume', aiResumeRoutes);
+app.use('/api/interviews', interviewAPI);  // Comprehensive interview API
+app.use('/api/virtual-interviews', virtualInterviewRoutes);  // Virtual face-to-face interviews
+app.use('/api/evaluate', evaluationRoutes);
+app.use('/api/progress', progressRoutes);
+
+// Health check endpoint
+app.get('/', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.json({ status: 'ok', app: 'prepmate AI Backend', timestamp: new Date().toISOString() });
+});
+
+// 404 handler
+app.use((req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.status(404).json({ message: 'Route not found', path: req.path });
+});
+
+// Error handler
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  res.setHeader('Content-Type', 'application/json');
+  res.status(err.status || 500).json({ message: err.message || 'Internal server error' });
+});
+
+// Start server and connect to DB
+async function start() {
+  try {
+    console.log('Starting prepmate AI Backend...');
+    console.log('Attempting to connect to MongoDB...');
+    
+    await connectDB();
+    console.log('MongoDB connected, starting Express server...');
+    
+    const server = app.listen(PORT, '127.0.0.1', () => {
+      console.log(`✓ Server running on http://127.0.0.1:${PORT}`);
+      console.log('[Server] Ready to accept connections');
+    });
+    
+    server.on('error', (err) => {
+      console.error('[Server] Error:', err);
+    });
+  } catch (err) {
+    console.error('[Startup] Failed:', err.message);
+    process.exit(1);
+  }
+}
+
+start();

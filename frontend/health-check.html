@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backend Health Check</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    .status {
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .success { background-color: #90EE90; color: green; }
+    .error { background-color: #FFB6C1; color: red; }
+    .info { background-color: #87CEEB; color: blue; }
+    pre { background-color: #f0f0f0; padding: 10px; border-radius: 5px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>Backend Health Check</h1>
+  <div id="status"></div>
+  <h2>API Base URLs to test:</h2>
+  <ul>
+    <li>http://localhost:6000</li>
+    <li>http://127.0.0.1:6000</li>
+  </ul>
+
+  <script src="scripts/config.js"></script>
+  <script src="scripts/api.js"></script>
+  <script>
+    const statusDiv = document.getElementById('status');
+
+    async function test() {
+      statusDiv.innerHTML += `<div class="info">Current API_BASE: ${window.API_BASE}</div>`;
+      
+      // Test health check
+      try {
+        statusDiv.innerHTML += `<div class="info">Testing ${window.API_BASE}/...</div>`;
+        const result = await window.checkBackendHealth();
+        if (result) {
+          statusDiv.innerHTML += `<div class="success">✓ Backend is reachable!</div>`;
+        } else {
+          statusDiv.innerHTML += `<div class="error">✗ Backend health check failed</div>`;
+        }
+      } catch (err) {
+        statusDiv.innerHTML += `<div class="error">Error: ${err.message}</div>`;
+      }
+
+      // Try an actual API call
+      try {
+        statusDiv.innerHTML += `<div class="info">Attempting API call to /api/auth/health (may 404)...</div>`;
+        const res = await fetch(`${window.API_BASE}/api/auth/health`);
+        statusDiv.innerHTML += `<div class="info">Response status: ${res.status}</div>`;
+        const data = await res.text();
+        statusDiv.innerHTML += `<pre>Response: ${data}</pre>`;
+      } catch (err) {
+        statusDiv.innerHTML += `<div class="error">Fetch error: ${err.message}</div>`;
+      }
+    }
+
+    test();
+  </script>
+</body>
+</html>

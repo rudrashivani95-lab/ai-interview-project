@@ -1,0 +1,55 @@
+{
+  "name": "ai-avatar-interview-backend",
+  "version": "1.0.0",
+  "description": "Backend server for AI Avatar Interview System with D-ID, Whisper, GPT, and ElevenLabs integration",
+  "main": "avatar-interview-server.js",
+  "scripts": {
+    "start": "node avatar-interview-server.js",
+    "dev": "nodemon avatar-interview-server.js",
+    "server": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "avatar",
+    "interview",
+    "ai",
+    "d-id",
+    "whisper",
+    "gpt",
+    "elevenlabs",
+    "video",
+    "speech-to-text"
+  ],
+  "author": "prepmate Team",
+  "license": "MIT",
+  "dependencies": {
+    "@heygen/streaming-avatar": "^2.1.0",
+    "axios": "^1.13.2",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.18.2",
+    "form-data": "^4.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.5.1",
+    "multer": "^1.4.5-lts.1",
+    "pdfkit": "^0.13.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prepmate/ai-avatar-interview.git"
+  },
+  "bugs": {
+    "url": "https://github.com/prepmate/ai-avatar-interview/issues"
+  },
+  "homepage": "https://github.com/prepmate/ai-avatar-interview#readme"
+}
