@@ -4,7 +4,7 @@
  */
 
 class APIClient {
-  constructor(baseUrl = 'http://localhost:3000') {
+  constructor(baseUrl = window.API_BASE || 'http://127.0.0.1:3000') {
     this.baseUrl = baseUrl;
     this.timeout = 30000;
   }

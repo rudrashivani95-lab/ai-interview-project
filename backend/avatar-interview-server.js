@@ -988,8 +988,9 @@ app.use((err, req, res, next) => {
 // START SERVER
 // ============================================
 
-app.listen(PORT, () => {
-  console.log(`
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`
 ╔════════════════════════════════════════════════════════════════╗
 ║     AI AVATAR INTERVIEW - BACKEND SERVER                      ║
 ║                                                                ║
@@ -1009,7 +1010,8 @@ app.listen(PORT, () => {
 ║  • GET /api/health                    Health check            ║
 ║                                                                ║
 ╚════════════════════════════════════════════════════════════════╝
-  `);
-});
+    `);
+  });
+}
 
 module.exports = app;
